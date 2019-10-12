@@ -1,10 +1,13 @@
 # jlenv: Simple Julia Version Management
+
 ---
 
 [![Build Status](https://travis-ci.com/jlenv/jlenv.svg?branch=master)](https://travis-ci.com/jlenv/jlenv) [![CodeFactor](https://www.codefactor.io/repository/github/jlenv/jlenv/badge)](https://www.codefactor.io/repository/github/jlenv/jlenv) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0d970140c2ff4547820b7f2a908620cd)](https://www.codacy.com/manual/taqtiqa-mark/jlenv_2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jlenv/jlenv&amp;utm_campaign=Badge_Grade)
 
 Use jlenv to pick a Julia version for your application and guarantee
 that your development environment matches production.
+ 
+ Further [documentation is here](https://jlenv.github.io/jlenv/).
 
  Further [documentation is here](https://jlenv.github.io/jlenv/).
 
@@ -30,5 +33,3 @@ that your development environment matches production.
 
 In the interest of fostering an excellent code base, we try to encourage anyone
 to participate in our project. Please do likewise.
-
-## Contributors
