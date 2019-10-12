@@ -24,6 +24,3 @@ test/libexec/share
 # Editor specifics
 /.vscode
 .vimrc
-
-# merge conflict artifacts
-*.orig
