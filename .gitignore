@@ -8,3 +8,7 @@
 /src/Makefile
 /src/*.o
 /gems
+
+# Editor specifics
+/.vscode
+.vimrc
