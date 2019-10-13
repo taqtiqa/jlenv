@@ -1,18 +1,5 @@
 # FAQ / Troubleshooting
 
-[Return Home>](/jlenv/)
-
-## Page Contents
-
-* [FAQ / Troubleshooting](#faq--troubleshooting)
-    * [What is jlenv?](#what-is-jlenv)
-    * [How is this better than ...?](#how-is-this-better-than-)
-    * [How do I install jlenv?](#how-do-i-install-jlenv)
-    * [What is allowed in a .julia-version file?](#what-is-allowed-in-a-julia-version-file)
-    * [How to verify that I have set up jlenv correctly?](#how-to-verify-that-i-have-set-up-jlenv-correctly)
-    * [jlenv is installed but not working for me.](#jlenv-is-installed-but-not-working-for-me)
-    * [Which shell startup file do I put jlenv config in?](#which-shell-startup-file-do-i-put-jlenv-config-in)
-
 ### What is jlenv?
 
 [jlenv](https://jlenv.github.com/jlenv/readme#installation) is a tool for simple 
@@ -20,7 +7,7 @@ Julia version management.
 
 ### How is this better than ...?
 
-See [Why jlenv?](/jlenv/why-jlenv)
+See [Why jlenv?](/why-jlenv)
 
 ### How do I install jlenv?
 
@@ -86,4 +73,4 @@ Typically it's one of the following:
 * fish: `~/.config/fish/config.fish`
 * other: `~/.profile`
 
-See [Unix shell initialization](/jlenv/unix-shell-init) for more info about how config files get loaded.
+See [Unix shell initialization](/unix-shell-init) for more info about how config files get loaded.
