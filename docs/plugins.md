@@ -1,12 +1,14 @@
 # Plugins
 
+[Return Home>](/jlenv/)
+
 ## Page Contents
 
 * [Plugins](#plugins)
   * [<a href="#approved-plugins"></a>Approved plugins](#approved-plugins)
   * [<a href="#community-plugins"></a>Community plugins](#community-plugins)
 
-See [Authoring Plugins](/authoring-plugins.md) for instructions on how to write 
+See [Authoring Plugins](/jlenv/authoring-plugins.md) for instructions on how to write 
 new commands for jlenv or hook into its functionality.
 
 A plugin can be installed by dropping it in as a sub-directory of 
