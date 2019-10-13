@@ -1,12 +1,5 @@
 # Deploying with jlenv
 
-[Return Home>](/jlenv/)
-
-## Page Contents
-
-* [Deploying with jlenv](#deploying-with-jlenv)
-  * [Ensure consistent PATH for processes](#ensure-consistent-path-for-processes)
-  
 Setting up jlenv on a production server is exactly the same as in development. 
 Some considerations for a hypothetical deployment strategy:
 
@@ -17,7 +10,7 @@ Some considerations for a hypothetical deployment strategy:
 
 Users of Chef may find this project useful:
 
-* [jlenv-cookbook](https://github.com/jlenv/jlenv-cookbook#readme)
+* [chef-jlenv](https://github.com/jlenv/jlenv-cookbook#readme)
 
 ## Ensure consistent PATH for processes
 
