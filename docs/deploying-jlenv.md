@@ -17,7 +17,7 @@ Some considerations for a hypothetical deployment strategy:
 
 Users of Chef may find this project useful:
 
-* [chef-jlenv](https://github.com/jlenv/jlenv-cookbook#readme)
+* [jlenv-cookbook](https://github.com/jlenv/jlenv-cookbook#readme)
 
 ## Ensure consistent PATH for processes
 
