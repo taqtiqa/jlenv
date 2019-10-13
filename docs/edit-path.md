@@ -1,5 +1,14 @@
 # How to edit path
 
+## Page Contents
+
+* [How to edit path](#how-to-edit-path)
+  * [Post-receive git hook](#post-receive-git-hook)
+  * [cron jobs](#cron-jobs)
+  * [TextMate](#textmate)
+  * [Sublime Text 2](#sublime-text-2)
+  * [Capistrano](#capistrano)
+  
 The beauty of jlenv is that **it doesn't require special integrations** with
 any tools, shells or environments. I
 ts shims directory just needs to be present in the path and jlenv will take
