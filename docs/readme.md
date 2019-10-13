@@ -17,20 +17,20 @@ that your development environment matches production.
   you tailor it to suit your needs. Compile your own Julia versions, or
   use the [julia-build](https://github.com/jlenv/julia-build)
   plugin to automate the process.
-  See more [plugins](/plugins).
+  See more [plugins](/jlenv/plugins).
 
 ## Table of Contents
 
-* [FAQ](/faq-troubleshooting)
-* [Why jlenv?](/Why-jlenv)
-* [How It Works](/how-it-works)
-* [Command Reference](/command-reference)
-* [jlenv plugins](/plugins)
-* [Authoring plugins](/authoring-plugins)
-* [How to enable jlenv everywhere](/edit-path)
-* [Deploying with jlenv](/deploying-jlenv)
-* [Understanding binstubs](/understanding-binstubs)
-* [Unix shell initialization](/unix-shell-init)
+* [FAQ](/jlenv/faq-troubleshooting)
+* [Why jlenv?](/jlenv/why-jlenv)
+* [How It Works](/jlenv/how-it-works)
+* [Command Reference](/jlenv/command-reference)
+* [jlenv plugins](/jlenv/plugins)
+* [Authoring plugins](/jlenv/authoring-plugins)
+* [How to enable jlenv everywhere](/jlenv/edit-path)
+* [Deploying with jlenv](/jlenv/deploying-jlenv)
+* [Understanding binstubs](/jlenv/understanding-binstubs)
+* [Unix shell initialization](/jlenv/unix-shell-init)
 
 ## Page Contents
 
@@ -206,7 +206,7 @@ You can affect how jlenv operates with the following settings:
 
 name | default | description
 -----|---------|------------
-`JLENV_VERSION` | | Specifies the Julia version to be used. Also see [`jlenv shell`](/command-reference#jlenv-shell)
+`JLENV_VERSION` | | Specifies the Julia version to be used. Also see [`jlenv shell`](/jlenv/command-reference#jlenv-shell)
 `JLENV_ROOT` | `~/.jlenv` | Defines the directory under which Julia versions and shims reside.<br>Also see `jlenv root`
 `JLENV_DEBUG` | | Outputs debug information.<br>Also as: `jlenv --debug <subcommand>`
 `JLENV_HOOK_PATH` | [See Authoring Plugins][/authoring-plugins#jlenv-hooks] | Colon-separated list of paths searched for jlenv hooks.
