@@ -13,7 +13,10 @@ accordingly somewhere in `$JLENV_HOOK_PATH`.
 
 These plugins are endorsed by jlenv maintainers.
 
-*   [julia-build](https://github.com/jlenv/julia-build) - compile and **install Julia**
+*   [julia-installer](https://github.com/jlenv/jlenv-installer) - **install, update and diagnose jlenv**.
+    Provides the `jlenv doctor` command.
+*   [julia-build](https://github.com/jlenv/julia-build) - compile and **install Julia**.
+    Provides the `jlenv install` command.
 <!-- *   [ctags](https://github.com/jlenv/jlenv-ctags) - automatically **generate ctags** for jlenv Julia stdlibs
 *   [vars](https://github.com/jlenv/jlenv-vars) - safely sets global and per-project **environment variables**
 *   [each](https://github.com/jlenv/jlenv-each) - execute the same command **with each** installed Julia
