@@ -1,7 +1,3 @@
-# jlenv: Simple Julia Version Management
-
----
-
 Use jlenv to pick a Julia version for your application and guarantee
 that your development environment matches production.
 
