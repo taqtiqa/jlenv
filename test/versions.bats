@@ -55,67 +55,67 @@ OUT
 
 @test "multiple versions" {
   stub_system_julia
-  create_version "1.8.7"
-  create_version "1.9.3"
+  create_version "0.7.0"
+  create_version "1.0.3"
   create_version "2.0.0"
   run jlenv-versions
   assert_success
   assert_output <<OUT
 * system (set by ${JLENV_ROOT}/version)
-  1.8.7
-  1.9.3
+  0.7.0
+  1.0.3
   2.0.0
 OUT
 }
 
 @test "indicates current version" {
   stub_system_julia
-  create_version "1.9.3"
+  create_version "1.0.3"
   create_version "2.0.0"
-  JLENV_VERSION=1.9.3 run jlenv-versions
+  JLENV_VERSION=1.0.3 run jlenv-versions
   assert_success
   assert_output <<OUT
   system
-* 1.9.3 (set by JLENV_VERSION environment variable)
+* 1.0.3 (set by JLENV_VERSION environment variable)
   2.0.0
 OUT
 }
 
 @test "bare doesn't indicate current version" {
-  create_version "1.9.3"
+  create_version "1.0.3"
   create_version "2.0.0"
-  JLENV_VERSION=1.9.3 run jlenv-versions --bare
+  JLENV_VERSION=1.0.3 run jlenv-versions --bare
   assert_success
   assert_output <<OUT
-1.9.3
+1.0.3
 2.0.0
 OUT
 }
 
 @test "globally selected version" {
   stub_system_julia
-  create_version "1.9.3"
+  create_version "1.0.3"
   create_version "2.0.0"
-  cat > "${JLENV_ROOT}/version" <<<"1.9.3"
+  cat > "${JLENV_ROOT}/version" <<<"1.0.3"
   run jlenv-versions
   assert_success
   assert_output <<OUT
   system
-* 1.9.3 (set by ${JLENV_ROOT}/version)
+* 1.0.3 (set by ${JLENV_ROOT}/version)
   2.0.0
 OUT
 }
 
 @test "per-project version" {
   stub_system_julia
-  create_version "1.9.3"
+  create_version "1.0.3"
   create_version "2.0.0"
-  cat > ".julia-version" <<<"1.9.3"
+  cat > ".julia-version" <<<"1.0.3"
   run jlenv-versions
   assert_success
   assert_output <<OUT
   system
-* 1.9.3 (set by ${JLENV_TEST_DIR}/.julia-version)
+* 1.0.3 (set by ${JLENV_TEST_DIR}/.julia-version)
   2.0.0
 OUT
 }
@@ -129,20 +129,20 @@ OUT
 }
 
 @test "lists symlinks under versions" {
-  create_version "1.8.7"
-  ln -s "1.8.7" "${JLENV_ROOT}/versions/1.8"
+  create_version "0.7.0"
+  ln -s "0.7.0" "${JLENV_ROOT}/versions/1.8"
 
   run jlenv-versions --bare
   assert_success
   assert_output <<OUT
 1.8
-1.8.7
+0.7.0
 OUT
 }
 
 @test "doesn't list symlink aliases when --skip-aliases" {
-  create_version "1.8.7"
-  ln -s "1.8.7" "${JLENV_ROOT}/versions/1.8"
+  create_version "0.7.0"
+  ln -s "0.7.0" "${JLENV_ROOT}/versions/1.8"
   mkdir moo
   ln -s "${PWD}/moo" "${JLENV_ROOT}/versions/1.9"
 
@@ -150,7 +150,7 @@ OUT
   assert_success
 
   assert_output <<OUT
-1.8.7
+0.7.0
 1.9
 OUT
 }
