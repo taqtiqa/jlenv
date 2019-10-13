@@ -1,5 +1,7 @@
 # FAQ / Troubleshooting
 
+[Return Home>](/jlenv/)
+
 ## Page Contents
 
 * [FAQ / Troubleshooting](#faq--troubleshooting)
@@ -18,7 +20,7 @@ Julia version management.
 
 ### How is this better than ...?
 
-See [Why jlenv?](/why-jlenv)
+See [Why jlenv?](/jlenv/why-jlenv)
 
 ### How do I install jlenv?
 
@@ -84,4 +86,4 @@ Typically it's one of the following:
 * fish: `~/.config/fish/config.fish`
 * other: `~/.profile`
 
-See [Unix shell initialization](/unix-shell-init) for more info about how config files get loaded.
+See [Unix shell initialization](/jlenv/unix-shell-init) for more info about how config files get loaded.

@@ -1,5 +1,7 @@
 # Authoring plugins
 
+[Return Home>](/jlenv/)
+
 ## Page Contents
 
 * [Authoring plugins](#authoring-plugins)

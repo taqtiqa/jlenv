@@ -1,5 +1,7 @@
 # How to edit path
 
+[Return Home>](/jlenv/)
+
 ## Page Contents
 
 * [How to edit path](#how-to-edit-path)
@@ -21,7 +23,7 @@ various programs/environments.
 
 The post-receive script that runs on a remote machine as a result of `git push`
 will run in a restricted shell and therefore won't source any init files
-described in [Unix shell initialization](/unix-shell-init).
+described in [Unix shell initialization](/jlenv/unix-shell-init).
 As a consequence, jlenv won't be present in `PATH` even if you configured it to
 be enabled when you log in over SSH.
 

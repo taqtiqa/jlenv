@@ -1,5 +1,7 @@
 # How It Works
 
+[Return Home>](/jlenv/)
+
 ## Page Contents
 
 * [How It Works](#how-it-works)
