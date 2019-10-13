@@ -20,14 +20,14 @@ create_executable() {
 
   run jlenv-whence julia
   assert_success
-  assert_output --stdin <<'OUT'
+  assert_output <<OUT
 0.7
 2.0
 OUT
 
   run jlenv-whence juliac
   assert_success
-  assert_output --stdin <<'OUT'
+  assert_output <<OUT
 1.0
 2.0
 OUT

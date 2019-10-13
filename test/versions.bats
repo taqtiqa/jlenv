@@ -134,19 +134,19 @@ OUT
 
 @test "lists symlinks under versions" {
   create_version "0.7.0"
-  ln -s "0.7.0" "${JLENV_ROOT}/versions/1.8"
+  ln -s "0.7.0" "${JLENV_ROOT}/versions/0.7"
 
   run jlenv-versions --bare
   assert_success
   assert_output <<OUT
-1.8
+0.7
 0.7.0
 OUT
 }
 
 @test "doesn't list symlink aliases when --skip-aliases" {
   create_version "0.7.0"
-  ln -s "0.7.0" "${JLENV_ROOT}/versions/1.8"
+  ln -s "0.7.0" "${JLENV_ROOT}/versions/0.7"
   mkdir moo
   ln -s "${PWD}/moo" "${JLENV_ROOT}/versions/1.9"
 
