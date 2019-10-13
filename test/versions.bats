@@ -61,8 +61,8 @@ stub_system_julia() {
   create_version "2.0.0"
   run jlenv-versions
   assert_success
-  assert_line --index 0 --regexp '(\* system \(set by )(.*)(jlenv\.[a-zA-Z0-9]{3})/root/version\)'
-  assert_output --partial --stdin <<'OUT'
+  assert_output <<OUT
+* system (set by ${JLENV_ROOT}/version)
   0.7.0
   1.0.3
   2.0.0
@@ -90,7 +90,7 @@ OUT
   create_version "2.0.0"
   JLENV_VERSION=1.0.3 run jlenv-versions --bare
   assert_success
-  assert_output --stdin <<'OUT'
+  assert_output <<OUT
 1.0.3
 2.0.0
 OUT
@@ -103,9 +103,11 @@ OUT
   cat > "${JLENV_ROOT}/version" <<<"1.0.3"
   run jlenv-versions
   assert_success
-  assert_line --index 0 '  system'
-  assert_line --index 1 --regexp '(\* 1.0.3 \(set by )(.*)(jlenv\.[a-zA-Z0-9]{3})/root/version\)'
-  assert_line --index 2 '  2.0.0'
+  assert_output <<OUT
+  system
+* 1.0.3 (set by ${JLENV_ROOT}/version)
+  2.0.0
+OUT
 }
 
 @test "per-project version" {
@@ -115,9 +117,11 @@ OUT
   cat > ".julia-version" <<<"1.0.3"
   run jlenv-versions
   assert_success
-  assert_line --index 0 '  system'
-  assert_line --index 1 --regexp '(\* 1.0.3 \(set by )(.*)(jlenv\.[a-zA-Z0-9]{3})/.julia-version\)'
-  assert_line --index 2 '  2.0.0'
+  assert_output <<OUT
+  system
+* 1.0.3 (set by ${JLENV_TEST_DIR}/.julia-version)
+  2.0.0
+OUT
 }
 
 @test "ignores non-directories under versions" {
@@ -130,26 +134,26 @@ OUT
 
 @test "lists symlinks under versions" {
   create_version "0.7.0"
-  ln -s "0.7.0" "${JLENV_ROOT}/versions/0.7"
+  ln -s "0.7.0" "${JLENV_ROOT}/versions/1.8"
 
   run jlenv-versions --bare
   assert_success
-  assert_output --stdin <<'OUT'
-0.7
+  assert_output <<OUT
+1.8
 0.7.0
 OUT
 }
 
 @test "doesn't list symlink aliases when --skip-aliases" {
   create_version "0.7.0"
-  ln -s "0.7.0" "${JLENV_ROOT}/versions/0.7"
+  ln -s "0.7.0" "${JLENV_ROOT}/versions/1.8"
   mkdir moo
   ln -s "${PWD}/moo" "${JLENV_ROOT}/versions/1.9"
 
   run jlenv-versions --bare --skip-aliases
   assert_success
 
-  assert_output --stdin <<'OUT'
+  assert_output <<OUT
 0.7.0
 1.9
 OUT

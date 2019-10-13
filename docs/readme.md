@@ -176,7 +176,7 @@ As time goes on, Julia versions you install will accumulate in your
 To remove old Julia versions, simply `rm -rf` the directory of the
 version you want to remove. You can find the directory of a particular
 Julia version with the `jlenv prefix` command, e.g. `jlenv prefix
-1.8.7-p357`.
+1.0.0`.
 
 The [julia-build][] plugin provides an `jlenv uninstall` command to
 automate the removal process.
