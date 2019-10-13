@@ -1,6 +1,5 @@
-# Command Reference
 
-[Return Home>](/jlenv/)
+# Command Reference
 
 ## Page Contents
 
