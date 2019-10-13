@@ -1,5 +1,18 @@
 # Understanding Binstubs
 
+## Page Contents
+
+* [Understanding Binstubs](#understanding-binstubs)
+  * [Context](#context)
+  * [Julia Compiled Packages](#julia-compiled-packages)
+      * [PackageCompile.jl](#packagecompilejl)
+      * [BinaryBuilder.jl   BinaryProvider.jl](#binarybuilderjl--binaryproviderjl)
+  * [jlenv](#jlenv)
+  * [Project-specific binaries](#project-specific-binaries)
+      * [Hand generated binstubs](#hand-generated-binstubs)
+      * [Manually created binstubs](#manually-created-binstubs)
+      * [Adding project-specific binstubs to PATH](#adding-project-specific-binstubs-to-path)
+
 ## Context
 
 Dynamic languages such as Python, Ruby or R have the concept of binstubs as
