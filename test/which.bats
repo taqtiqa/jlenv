@@ -13,14 +13,14 @@ create_executable() {
 }
 
 @test "outputs path to executable" {
-  create_executable "1.8" "julia"
-  create_executable "2.0" "rspec"
+  create_executable "0.7" "julia"
+  create_executable "2.0" "juliac"
 
-  JLENV_VERSION=1.8 run jlenv-which julia
-  assert_success "${JLENV_ROOT}/versions/1.8/bin/julia"
+  JLENV_VERSION=0.7 run jlenv-which julia
+  assert_success "${JLENV_ROOT}/versions/0.7/bin/julia"
 
-  JLENV_VERSION=2.0 run jlenv-which rspec
-  assert_success "${JLENV_ROOT}/versions/2.0/bin/rspec"
+  JLENV_VERSION=2.0 run jlenv-which juliac
+  assert_success "${JLENV_ROOT}/versions/2.0/bin/juliac"
 }
 
 @test "searches PATH for system version" {
@@ -67,14 +67,14 @@ create_executable() {
 }
 
 @test "version not installed" {
-  create_executable "2.0" "rspec"
-  JLENV_VERSION=1.9 run jlenv-which rspec
+  create_executable "2.0" "juliac"
+  JLENV_VERSION=1.9 run jlenv-which juliac
   assert_failure "jlenv: version \`1.9' is not installed (set by JLENV_VERSION environment variable)"
 }
 
 @test "no executable found" {
-  create_executable "1.8" "rspec"
-  JLENV_VERSION=1.8 run jlenv-which rake
+  create_executable "0.7" "juliac"
+  JLENV_VERSION=0.7 run jlenv-which rake
   assert_failure "jlenv: rake: command not found"
 }
 
@@ -85,16 +85,16 @@ create_executable() {
 }
 
 @test "executable found in other versions" {
-  create_executable "1.8" "julia"
-  create_executable "1.9" "rspec"
-  create_executable "2.0" "rspec"
+  create_executable "0.7" "julia"
+  create_executable "1.9" "juliac"
+  create_executable "2.0" "juliac"
 
-  JLENV_VERSION=1.8 run jlenv-which rspec
+  JLENV_VERSION=0.7 run jlenv-which juliac
   assert_failure
   assert_output <<OUT
-jlenv: rspec: command not found
+jlenv: juliac: command not found
 
-The \`rspec' command exists in these Julia versions:
+The \`juliac' command exists in these Julia versions:
   1.9
   2.0
 OUT
@@ -114,12 +114,12 @@ SH
 
 @test "discovers version from jlenv-version-name" {
   mkdir -p "$JLENV_ROOT"
-  cat > "${JLENV_ROOT}/version" <<<"1.8"
-  create_executable "1.8" "julia"
+  cat > "${JLENV_ROOT}/version" <<<"0.7"
+  create_executable "0.7" "julia"
 
   mkdir -p "$JLENV_TEST_DIR"
   cd "$JLENV_TEST_DIR"
 
   JLENV_VERSION= run jlenv-which julia
-  assert_success "${JLENV_ROOT}/versions/1.8/bin/julia"
+  assert_success "${JLENV_ROOT}/versions/0.7/bin/julia"
 }

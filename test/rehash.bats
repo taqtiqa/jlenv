@@ -32,7 +32,7 @@ create_executable() {
 }
 
 @test "creates shims" {
-  create_executable "1.8" "julia"
+  create_executable "0.7" "julia"
   create_executable "2.0" "julia"
 
   assert [ ! -e "${JLENV_ROOT}/shims/julia" ]
@@ -62,20 +62,20 @@ OUT
 }
 
 @test "do exact matches when removing stale shims" {
-  create_executable "2.0" "unicorn_rails"
-  create_executable "2.0" "rspec-core"
+  create_executable "2.0" "unicorn_genie"
+  create_executable "2.0" "juliac"
 
   jlenv-rehash
 
-  cp "$JLENV_ROOT"/shims/{rspec-core,rspec}
-  cp "$JLENV_ROOT"/shims/{rspec-core,rails}
-  cp "$JLENV_ROOT"/shims/{rspec-core,uni}
-  chmod +x "$JLENV_ROOT"/shims/{rspec,rails,uni}
+  cp "$JLENV_ROOT"/shims/{juliac,julia}
+  cp "$JLENV_ROOT"/shims/{juliac,genie}
+  cp "$JLENV_ROOT"/shims/{juliac,uni}
+  chmod +x "$JLENV_ROOT"/shims/{juliac,genie,uni}
 
   run jlenv-rehash
   assert_success ""
 
-  assert [ ! -e "${JLENV_ROOT}/shims/rails" ]
+  assert [ ! -e "${JLENV_ROOT}/shims/genie" ]
   assert [ ! -e "${JLENV_ROOT}/shims/rake" ]
   assert [ ! -e "${JLENV_ROOT}/shims/uni" ]
 }
