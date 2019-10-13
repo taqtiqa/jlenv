@@ -24,7 +24,7 @@ create_executable() {
   mkdir -p "$JLENV_TEST_DIR"
   cd "$JLENV_TEST_DIR"
   echo 1.9 > .julia-version
-  run jlenv-exec rspec
+  run jlenv-exec juliac
   assert_failure "jlenv: version \`1.9' is not installed (set by $PWD/.julia-version)"
 }
 
