@@ -1,5 +1,11 @@
 # Plugins
 
+## Page Contents
+
+* [Plugins](#plugins)
+  * [<a href="#approved-plugins"></a>Approved plugins](#approved-plugins)
+  * [<a href="#community-plugins"></a>Community plugins](#community-plugins)
+
 See [Authoring Plugins](/authoring-plugins.md) for instructions on how to write 
 new commands for jlenv or hook into its functionality.
 

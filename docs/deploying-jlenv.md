@@ -1,5 +1,10 @@
 # Deploying with jlenv
 
+## Page Contents
+
+* [Deploying with jlenv](#deploying-with-jlenv)
+  * [Ensure consistent PATH for processes](#ensure-consistent-path-for-processes)
+  
 Setting up jlenv on a production server is exactly the same as in development. 
 Some considerations for a hypothetical deployment strategy:
 

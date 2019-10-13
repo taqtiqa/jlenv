@@ -21,7 +21,7 @@ that your development environment matches production.
   you tailor it to suit your needs. Compile your own Julia versions, or
   use the [julia-build](https://github.com/jlenv/julia-build)
   plugin to automate the process.
-  See more [plugins](#plugins).
+  See more [plugins](/plugins).
 
 ## Table of Contents
 
@@ -73,23 +73,25 @@ a systemwide install.
 
 1. Clone jlenv into `~/.jlenv`.
 
-    ~~~ sh
-    $ git clone https://github.com/jlenv/jlenv.git ~/.jlenv
-    ~~~
+    ```bash
+    git clone https://github.com/jlenv/jlenv.git ~/.jlenv
+    ```
 
     Optionally, try to compile dynamic bash extension to speed up jlenv. Don't
     worry if it fails; jlenv will still work normally:
 
-    ~~~
-    $ cd ~/.jlenv && src/configure && make -C src
-    ~~~
+    ```sh
+    cd ~/.jlenv
+    src/configure
+    make -C src
+    ```
 
 2. Add `~/.jlenv/bin` to your `$PATH` for access to the `jlenv`
    command-line utility.
 
-    ~~~ sh
-    $ echo 'export PATH="$HOME/.jlenv/bin:$PATH"' >> ~/.bash_profile
-    ~~~
+    ```bash
+    echo 'export PATH="$HOME/.jlenv/bin:$PATH"' >> ~/.bash_profile
+    ```
 
     **Ubuntu Desktop note**: Modify your `~/.bashrc` instead of `~/.bash_profile`.
 
@@ -102,7 +104,7 @@ a systemwide install.
 4. Restart your shell so that PATH changes take effect. (Opening a new
    terminal tab will usually do it.)
 
-5. _(Optional)_ Install [julia-build][], which provides the
+5. _(Optional)_ Install [julia-build](https://github.com/jlenv/julia-build), which provides the
    `jlenv install` command that simplifies the process of
    [installing new Julia versions](#installing-julia-versions).
 
@@ -112,8 +114,8 @@ If you've installed jlenv manually using Git, you can upgrade to the
 latest version by pulling from GitHub:
 
 ```sh
-$ cd ~/.jlenv
-$ git pull
+cd ~/.jlenv
+git pull
 ```
 
 ### How jlenv hooks into your shell
@@ -151,16 +153,17 @@ hood.
 ### Installing Julia versions
 
 The `jlenv install` command doesn't ship with jlenv out of the box, but
-is provided by the [julia-build][] project. If you installed it either
-as part of GitHub checkout process outlined above, you should be able to:
+is provided by the [julia-build](https://github.com/jlenv/julia-build) project.
+If you installed it either as part of GitHub checkout process outlined above,
+you should be able to:
 
-~~~ sh
+```bash
 # list all available versions:
-$ jlenv install -l
+jlenv install -l
 
 # install a Julia version:
-$ jlenv install v1.0.3
-~~~
+jlenv install v1.0.3
+```
 
 Alternatively to the `install` command, you can download and compile
 Julia manually as a subdirectory of `~/.jlenv/versions/`. An entry in
@@ -175,11 +178,10 @@ As time goes on, Julia versions you install will accumulate in your
 
 To remove old Julia versions, simply `rm -rf` the directory of the
 version you want to remove. You can find the directory of a particular
-Julia version with the `jlenv prefix` command, e.g. `jlenv prefix
-1.0.0`.
+Julia version with the `jlenv prefix` command, e.g. `jlenv prefix 1.0.0`.
 
-The [julia-build][] plugin provides an `jlenv uninstall` command to
-automate the removal process.
+The [julia-build](https://github.com/jlenv/julia-build) plugin provides an 
+`jlenv uninstall` command to automate the removal process.
 
 ### Uninstalling jlenv
 
@@ -194,7 +196,7 @@ uninstall from the system.
   `jlenv` will still be accessible on the command line, but your Julia
   apps won't be affected by version switching.
 
-2. To completely **uninstall** jlenv, perform step (1) and then remove
+1. To completely **uninstall** jlenv, perform step (1) and then remove
    its root directory. This will **delete all Julia versions** that were
    installed under `` `jlenv root`/versions/ `` directory:
   
@@ -208,19 +210,18 @@ You can affect how jlenv operates with the following settings:
 
 name | default | description
 -----|---------|------------
-`JLENV_VERSION` | | Specifies the Julia version to be used.<br>Also see [`jlenv shell`](#jlenv-shell)
+`JLENV_VERSION` | | Specifies the Julia version to be used. Also see [`jlenv shell`](/command-reference#jlenv-shell)
 `JLENV_ROOT` | `~/.jlenv` | Defines the directory under which Julia versions and shims reside.<br>Also see `jlenv root`
 `JLENV_DEBUG` | | Outputs debug information.<br>Also as: `jlenv --debug <subcommand>`
-`JLENV_HOOK_PATH` | [_see wiki_][hooks] | Colon-separated list of paths searched for jlenv hooks.
+`JLENV_HOOK_PATH` | [See Authoring Plugins][/authoring-plugins#jlenv-hooks] | Colon-separated list of paths searched for jlenv hooks.
 `JLENV_DIR` | `$PWD` | Directory to start searching for `.julia-version` files.
 
 ## Development
 
-The jlenv source code is [hosted on
-GitHub](https://github.com/jlenv/jlenv). It's clean, modular,
-and easy to understand, even if you're not a shell hacker.
+The jlenv source code is [hosted on GitHub](https://github.com/jlenv/jlenv). 
+It's clean, modular, and easy to understand, even if you're not a shell hacker.
 
-Tests are executed using [Bats](https://github.com/jlenv/bats):
+Tests are executed using [Bats](https://github.com/sstephenson/bats):
 
 ```bash
 bats test
