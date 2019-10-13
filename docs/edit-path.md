@@ -1,16 +1,5 @@
 # How to edit path
 
-[Return Home>](/jlenv/)
-
-## Page Contents
-
-* [How to edit path](#how-to-edit-path)
-  * [Post-receive git hook](#post-receive-git-hook)
-  * [cron jobs](#cron-jobs)
-  * [TextMate](#textmate)
-  * [Sublime Text 2](#sublime-text-2)
-  * [Capistrano](#capistrano)
-  
 The beauty of jlenv is that **it doesn't require special integrations** with
 any tools, shells or environments. I
 ts shims directory just needs to be present in the path and jlenv will take
@@ -23,7 +12,7 @@ various programs/environments.
 
 The post-receive script that runs on a remote machine as a result of `git push`
 will run in a restricted shell and therefore won't source any init files
-described in [Unix shell initialization](/jlenv/unix-shell-init).
+described in [Unix shell initialization](/unix-shell-init).
 As a consequence, jlenv won't be present in `PATH` even if you configured it to
 be enabled when you log in over SSH.
 
