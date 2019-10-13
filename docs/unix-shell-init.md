@@ -1,20 +1,5 @@
 # Unix shell initialization
 
-[Return Home>](/jlenv/)
-
-## Page Contents
-
-* [Unix shell initialization](#unix-shell-initialization)
-  * [Shell modes](#shell-modes)
-  * [Shell init files](#shell-init-files)
-      * [<a href="https://www.gnu.org/software/bash/" rel="nofollow">bash</a>](#bash)
-      * [<a href="https://www.zsh.org" rel="nofollow">zsh</a>](#zsh)
-      * [<a href="http://gondor.apana.org.au/~herbert/dash/" rel="nofollow">dash</a>](#dash)
-      * [<a href="http://ridiculousfish.com/shell/user_doc/html/index.html#initialization" rel="nofollow">fish</a>](#fish)
-  * [Practical guide to which files get sourced when](#practical-guide-to-which-files-get-sourced-when)
-  * [Misc. things that affect $PATH](#misc-things-that-affect-path)
-  * [Final notes](#final-notes)
-
 Shell initialization files are ways to persist common shell configurations:
 
 * `$PATH` and other environment variables
