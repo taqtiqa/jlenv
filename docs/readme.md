@@ -104,13 +104,27 @@ a systemwide install.
    `jlenv install` command that simplifies the process of
    [installing new Julia versions](#installing-julia-versions).
 
-#### Upgrading with Git
+#### Upgrading jlenv with Git
+
+**Note:** See the next section to update avaiable Julia versions.
 
 If you've installed jlenv manually using Git, you can upgrade to the
-latest version by pulling from GitHub:
+latest version by pulling from GitHub.:
 
 ```sh
 cd ~/.jlenv
+git pull
+```
+
+#### Updating the list of available Julia versions
+
+If you're using the `jlenv install` command, then the list of available Julia
+versions is not automatically updated when updating the jlenv repo
+(`git pull` above).
+To do this manually:
+
+```sh
+cd ~/.jlenv/plugins/julia-build
 git pull
 ```
 
