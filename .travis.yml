@@ -3,4 +3,4 @@ language: c
 script:
   # - shellcheck etc/jlenv.d/exec/*
   # - shellcheck libexec/*
-  - test/run
+  - export JLENV_NATIVE_EXT=1 test/run
