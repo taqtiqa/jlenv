@@ -68,8 +68,8 @@ SH
 
   run jlenv-exec julia -w "/path to/julia script.rb" -- extra args
   assert_success
-  assert_output --stdin <<'OUT'
-${JLENV_ROOT}/versions/2.0/bin/julia
+  assert_line --index 0 --regexp '(jlenv\.[a-zA-Z0-9]{3})/(root/versions/2\.0/bin/julia)'
+  assert_output --partial --stdin <<'OUT'
   -w
   /path to/julia script.rb
   --
