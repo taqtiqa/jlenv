@@ -9,8 +9,8 @@ create_version() {
 }
 
 setup() {
-  mkdir -p "$JLENV_TEST_DIR"
-  cd "$JLENV_TEST_DIR"
+  mkdir -p "${JLENV_TEST_DIR}"
+  cd "${JLENV_TEST_DIR}"
 }
 
 stub_system_julia() {
@@ -23,7 +23,8 @@ stub_system_julia() {
   stub_system_julia
   assert [ ! -d "${JLENV_ROOT}/versions" ]
   run jlenv-versions
-  assert_success "* system (set by ${JLENV_ROOT}/version)"
+  assert_success 
+  assert_line --index 0 --regexp '(\* system \(set by )(.*)(jlenv\.[a-zA-Z0-9]{3})/root/version\)'
 }
 
 @test "not even system julia available" {
@@ -43,10 +44,8 @@ stub_system_julia() {
   create_version "1.9"
   run jlenv-versions
   assert_success
-  assert_output --stdin <<'OUT'
-* system (set by ${JLENV_ROOT}/version)
-  1.9
-OUT
+  assert_line --index 0 --regexp '(\* system \(set by )(.*)(jlenv\.[a-zA-Z0-9]{3})/root/version\)'
+  assert_output --partial '1.9'
 }
 
 @test "single version bare" {
@@ -62,8 +61,8 @@ OUT
   create_version "2.0.0"
   run jlenv-versions
   assert_success
-  assert_output --stdin <<'OUT'
-* system (set by ${JLENV_ROOT}/version)
+  assert_line --index 0 --regexp '(\* system \(set by )(.*)(jlenv\.[a-zA-Z0-9]{3})/root/version\)'
+  assert_output --partial --stdin <<'OUT'
   0.7.0
   1.0.3
   2.0.0
@@ -76,6 +75,9 @@ OUT
   create_version "2.0.0"
   JLENV_VERSION=1.0.3 run jlenv-versions
   assert_success
+  assert_line --index 0 '  system'
+  assert_line --index 1 '* 1.0.3 (set by JLENV_VERSION environment variable)'
+  assert_line --index 2 '  2.0.0'
   assert_output --stdin <<'OUT'
   system
 * 1.0.3 (set by JLENV_VERSION environment variable)
@@ -88,7 +90,7 @@ OUT
   create_version "2.0.0"
   JLENV_VERSION=1.0.3 run jlenv-versions --bare
   assert_success
-  assert_output --stdin <<stdin <<OUT
+  assert_output --stdin <<'OUT'
 1.0.3
 2.0.0
 OUT
@@ -101,11 +103,9 @@ OUT
   cat > "${JLENV_ROOT}/version" <<<"1.0.3"
   run jlenv-versions
   assert_success
-  assert_output --stdin <<'OUT'
-  system
-* 1.0.3 (set by ${JLENV_ROOT}/version)
-  2.0.0
-OUT
+  assert_line --index 0 '  system'
+  assert_line --index 1 --regexp '(\* 1.0.3 \(set by )(.*)(jlenv\.[a-zA-Z0-9]{3})/root/version\)'
+  assert_line --index 2 '  2.0.0'
 }
 
 @test "per-project version" {
@@ -115,11 +115,9 @@ OUT
   cat > ".julia-version" <<<"1.0.3"
   run jlenv-versions
   assert_success
-  assert_output --stdin <<'OUT'
-  system
-* 1.0.3 (set by ${JLENV_TEST_DIR}/.julia-version)
-  2.0.0
-OUT
+  assert_line --index 0 '  system'
+  assert_line --index 1 --regexp '(\* 1.0.3 \(set by )(.*)(jlenv\.[a-zA-Z0-9]{3})/.julia-version\)'
+  assert_line --index 2 '  2.0.0'
 }
 
 @test "ignores non-directories under versions" {

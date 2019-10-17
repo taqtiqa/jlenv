@@ -1,13 +1,60 @@
 unset JLENV_VERSION
 unset JLENV_DIR
 
-echo 'The test_helper script is ...'
+#####################################################################
+#
+# Helper functions
+#
+# These are set up in very test file (that $(load test_helper)) 
+# and available in every test.
+#
+#####################################################################
+
+
+teardown() {
+  rm -rf "$JLENV_TEST_DIR"
+}
+
+# Output a modified PATH that ensures that the given executable is not present,
+# but in which system utils necessary for jlenv operation are still available.
+path_without() {
+  local exe="$1"
+  local path=":${PATH}:"
+  local found alt util
+  for found in $(which -a "$exe"); do
+    found="${found%/*}"
+    if [ "$found" != "${JLENV_ROOT}/shims" ]; then
+      alt="${JLENV_TEST_DIR}/$(echo "${found#/}" | tr '/' '-')"
+      mkdir -p "$alt"
+      for util in bash head cut readlink greadlink; do
+        if [ -x "${found}/$util" ]; then
+          ln -s "${found}/$util" "${alt}/$util"
+        fi
+      done
+      path="${path/:${found}:/:${alt}:}"
+    fi
+  done
+  path="${path#:}"
+  echo "${path%:}"
+}
+
+create_hook() {
+  mkdir -p "${JLENV_HOOK_PATH}/$1"
+  touch "${JLENV_HOOK_PATH}/$1/$2"
+  if [ ! -t 0 ]; then
+    cat > "${JLENV_HOOK_PATH}/$1/$2"
+  fi
+}
+
+#####################################################################
+#
+# Main
+#
+#####################################################################
 
 # guard against executing this block twice due to bats internals
 if [ "${JLENV_ROOT:=/}" != "${JLENV_TEST_DIR:=/}/root" ]
 then
-
-  echo '... preparing bats test environment'
 
   JLENV_TEST_DIR="${BATS_TMPDIR}/libs/jlenv"
   PLUGIN="${JLENV_TEST_DIR}/root/plugins/jlenv-each"
@@ -43,54 +90,3 @@ then
   for xdg_var in `env 2>/dev/null | grep ^XDG_ | cut -d= -f1`; do unset "$xdg_var"; done
   unset xdg_var
 fi
-
-teardown() {
-  rm -rf "$JLENV_TEST_DIR"
-}
-
-flunk() {
-  { if [ "$#" -eq 0 ]; then cat -
-    else echo "$@"
-    fi
-  } | sed "s:${JLENV_TEST_DIR}:TEST_DIR:g" >&2
-  return 1
-}
-
-# Output a modified PATH that ensures that the given executable is not present,
-# but in which system utils necessary for jlenv operation are still available.
-path_without() {
-  local exe="$1"
-  local path=":${PATH}:"
-  local found alt util
-  for found in $(which -a "$exe"); do
-    found="${found%/*}"
-    if [ "$found" != "${JLENV_ROOT}/shims" ]; then
-      alt="${JLENV_TEST_DIR}/$(echo "${found#/}" | tr '/' '-')"
-      mkdir -p "$alt"
-      for util in bash head cut readlink greadlink; do
-        if [ -x "${found}/$util" ]; then
-          ln -s "${found}/$util" "${alt}/$util"
-        fi
-      done
-      path="${path/:${found}:/:${alt}:}"
-    fi
-  done
-  path="${path#:}"
-  echo "${path%:}"
-}
-
-create_hook() {
-  mkdir -p "${JLENV_HOOK_PATH}/$1"
-  touch "${JLENV_HOOK_PATH}/$1/$2"
-  if [ ! -t 0 ]; then
-    cat > "${JLENV_HOOK_PATH}/$1/$2"
-  fi
-}
-
-create_hook() {
-  mkdir -p "${JLENV_HOOK_PATH}/$1"
-  touch "${JLENV_HOOK_PATH}/$1/$2"
-  if [ ! -t 0 ]; then
-    cat > "${JLENV_HOOK_PATH}/$1/$2"
-  fi
-}
