@@ -86,3 +86,11 @@ create_hook() {
     cat > "${JLENV_HOOK_PATH}/$1/$2"
   fi
 }
+
+create_hook() {
+  mkdir -p "${JLENV_HOOK_PATH}/$1"
+  touch "${JLENV_HOOK_PATH}/$1/$2"
+  if [ ! -t 0 ]; then
+    cat > "${JLENV_HOOK_PATH}/$1/$2"
+  fi
+}

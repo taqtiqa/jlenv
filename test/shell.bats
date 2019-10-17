@@ -38,7 +38,7 @@ load test_helper
   JLENV_SHELL=bash run jlenv-sh-shell --unset
   assert_success
   assert_output --stdin <<'OUT'
-JLENV_VERSION_OLD="\$JLENV_VERSION"
+JLENV_VERSION_OLD="$JLENV_VERSION"
 unset JLENV_VERSION
 OUT
 }
@@ -47,7 +47,7 @@ OUT
   JLENV_SHELL=fish run jlenv-sh-shell --unset
   assert_success
   assert_output --stdin <<'OUT'
-set -gu JLENV_VERSION_OLD "\$JLENV_VERSION"
+set -gu JLENV_VERSION_OLD "$JLENV_VERSION"
 set -e JLENV_VERSION
 OUT
 }
@@ -55,7 +55,7 @@ OUT
 @test "shell change invalid version" {
   run jlenv-sh-shell 1.2.3
   assert_failure
-  assert_output --stdin <<SH
+  assert_output --stdin <<'SH'
 jlenv: version 'v1.2.3' not installed
 false
 SH
@@ -66,7 +66,7 @@ SH
   JLENV_SHELL=bash run jlenv-sh-shell 1.2.3
   assert_success
   assert_output --stdin <<'OUT'
-JLENV_VERSION_OLD="\$JLENV_VERSION"
+JLENV_VERSION_OLD="$JLENV_VERSION"
 export JLENV_VERSION="1.2.3"
 OUT
 }
@@ -76,7 +76,7 @@ OUT
   JLENV_SHELL=fish run jlenv-sh-shell 1.2.3
   assert_success
   assert_output --stdin <<'OUT'
-set -gu JLENV_VERSION_OLD "\$JLENV_VERSION"
+set -gu JLENV_VERSION_OLD "$JLENV_VERSION"
 set -gx JLENV_VERSION "1.2.3"
 OUT
 }

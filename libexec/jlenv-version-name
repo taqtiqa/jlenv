@@ -15,7 +15,7 @@ for script in "${scripts[@]}"; do
   source "$script"
 done
 
-if [ -z "$JLENV_VERSION" ] || [ "$JLENV_VERSION" = "system" ]; then
+if [ -z "${JLENV_VERSION}" ] || [ "${JLENV_VERSION}" = "system" ]; then
   echo "system"
   exit
 fi
@@ -30,6 +30,6 @@ if version_exists "$JLENV_VERSION"; then
 elif version_exists "${JLENV_VERSION#julia-}"; then
   echo "${JLENV_VERSION#julia-}"
 else
-  echo "jlenv: version \`$JLENV_VERSION' is not installed (set by $(jlenv-version-origin))" >&2
+  echo "jlenv: version 'v${JLENV_VERSION}' is not installed (set by $(jlenv-version-origin))" >&2
   exit 1
 fi
