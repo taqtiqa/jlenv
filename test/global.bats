@@ -29,5 +29,5 @@ load test_helper
 @test "fail setting invalid JLENV_ROOT/version" {
   mkdir -p "$JLENV_ROOT"
   run jlenv-global "1.2.3"
-  assert_failure "jlenv: version \`1.2.3' not installed"
+  assert_failure "jlenv: version 'v1.2.3' not installed"
 }

@@ -13,7 +13,7 @@ load test_helper
 
 @test "invalid command" {
   run jlenv-help hello
-  assert_failure "jlenv: no such command \`hello'"
+  assert_failure "jlenv: no such command \$(hello)"
 }
 
 @test "shows help for a specific command" {

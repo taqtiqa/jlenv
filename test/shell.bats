@@ -56,7 +56,7 @@ OUT
   run jlenv-sh-shell 1.2.3
   assert_failure
   assert_output --stdin <<SH
-jlenv: version \`1.2.3' not installed
+jlenv: version 'v1.2.3' not installed
 false
 SH
 }

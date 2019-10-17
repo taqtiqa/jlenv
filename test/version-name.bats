@@ -72,7 +72,7 @@ SH
 
 @test "missing version" {
   JLENV_VERSION=1.2 run jlenv-version-name
-  assert_failure "jlenv: version \`1.2' is not installed (set by JLENV_VERSION environment variable)"
+  assert_failure "jlenv: version 'v1.2' is not installed (set by JLENV_VERSION environment variable)"
 }
 
 @test "version with prefix in name" {

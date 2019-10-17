@@ -13,7 +13,7 @@ load test_helper
 @test "invalid command" {
   run jlenv does-not-exist
   assert_failure
-  assert_output "jlenv: no such command \`does-not-exist'"
+  assert_output "jlenv: no such command \$(does-not-exist)"
 }
 
 @test "default JLENV_ROOT" {
@@ -45,7 +45,7 @@ load test_helper
   assert [ ! -d "$dir" ]
   JLENV_DIR="$dir" run jlenv echo JLENV_DIR
   assert_failure
-  assert_output "jlenv: cannot change working directory to \`$dir'"
+  assert_output "jlenv: cannot change working directory to \$($dir)"
 }
 
 @test "adds its own libexec to PATH" {

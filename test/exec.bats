@@ -19,7 +19,7 @@ create_executable() {
 @test "fails with invalid version" {
   export JLENV_VERSION="2.0"
   run jlenv-exec julia -v
-  assert_failure "jlenv: version \`2.0' is not installed (set by JLENV_VERSION environment variable)"
+  assert_failure "jlenv: version 'v2.0' is not installed (set by JLENV_VERSION environment variable)"
 }
 
 @test "fails with invalid version set from file" {
@@ -27,7 +27,7 @@ create_executable() {
   cd "$JLENV_TEST_DIR"
   echo 1.9 > .julia-version
   run jlenv-exec juliac
-  assert_failure "jlenv: version \`1.9' is not installed (set by $PWD/.julia-version)"
+  assert_failure "jlenv: version 'v1.9' is not installed (set by $PWD/.julia-version)"
 }
 
 @test "completes with names of executables" {
@@ -81,7 +81,7 @@ OUT
 @test "supports julia -S <cmd>" {
   export JLENV_VERSION="2.0"
 
-  # emulate `julia -S' behavior
+  # emulate \$(julia -S) behavior
   create_executable "julia" <<SH
 #!$BASH
 if [[ \$1 == "-S"* ]]; then

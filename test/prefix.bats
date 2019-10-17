@@ -15,7 +15,7 @@ load test_helper
 
 @test "prefix for invalid version" {
   JLENV_VERSION="1.2.3" run jlenv-prefix
-  assert_failure "jlenv: version \`1.2.3' not installed"
+  assert_failure "jlenv: version 'v1.2.3' not installed"
 }
 
 @test "prefix for system" {
