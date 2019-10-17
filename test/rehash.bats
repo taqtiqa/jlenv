@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 create_executable() {
@@ -42,7 +44,7 @@ create_executable() {
 
   run ls "${JLENV_ROOT}/shims"
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 julia
 OUT
 }
@@ -90,7 +92,7 @@ OUT
 
   run ls "${JLENV_ROOT}/shims"
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 julia
 OUT
 }

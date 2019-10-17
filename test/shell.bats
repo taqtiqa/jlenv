@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 @test "no shell version" {
@@ -23,19 +25,19 @@ load test_helper
 @test "shell revert" {
   JLENV_SHELL=bash run jlenv-sh-shell -
   assert_success
-  assert_line 0 'if [ -n "${JLENV_VERSION_OLD+x}" ]; then'
+  assert_line --index 0 'if [ -n "${JLENV_VERSION_OLD+x}" ]; then'
 }
 
 @test "shell revert (fish)" {
   JLENV_SHELL=fish run jlenv-sh-shell -
   assert_success
-  assert_line 0 'if set -q JLENV_VERSION_OLD'
+  assert_line --index 0 'if set -q JLENV_VERSION_OLD'
 }
 
 @test "shell unset" {
   JLENV_SHELL=bash run jlenv-sh-shell --unset
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 JLENV_VERSION_OLD="\$JLENV_VERSION"
 unset JLENV_VERSION
 OUT
@@ -44,7 +46,7 @@ OUT
 @test "shell unset (fish)" {
   JLENV_SHELL=fish run jlenv-sh-shell --unset
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 set -gu JLENV_VERSION_OLD "\$JLENV_VERSION"
 set -e JLENV_VERSION
 OUT
@@ -53,7 +55,7 @@ OUT
 @test "shell change invalid version" {
   run jlenv-sh-shell 1.2.3
   assert_failure
-  assert_output <<SH
+  assert_output --stdin <<SH
 jlenv: version \`1.2.3' not installed
 false
 SH
@@ -63,7 +65,7 @@ SH
   mkdir -p "${JLENV_ROOT}/versions/1.2.3"
   JLENV_SHELL=bash run jlenv-sh-shell 1.2.3
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 JLENV_VERSION_OLD="\$JLENV_VERSION"
 export JLENV_VERSION="1.2.3"
 OUT
@@ -73,7 +75,7 @@ OUT
   mkdir -p "${JLENV_ROOT}/versions/1.2.3"
   JLENV_SHELL=fish run jlenv-sh-shell 1.2.3
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 set -gu JLENV_VERSION_OLD "\$JLENV_VERSION"
 set -gx JLENV_VERSION "1.2.3"
 OUT

@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 create_executable() {
@@ -18,14 +20,14 @@ create_executable() {
 
   run jlenv-whence julia
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 0.7
 2.0
 OUT
 
   run jlenv-whence juliac
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 1.0
 2.0
 OUT

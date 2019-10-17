@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 @test "prints usage help given no argument" {
@@ -20,7 +22,7 @@ load test_helper
 
   JLENV_HOOK_PATH="$path1:$path2" run jlenv-hooks exec
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 ${JLENV_TEST_DIR}/jlenv.d/exec/ahoy.bash
 ${JLENV_TEST_DIR}/jlenv.d/exec/hello.bash
 ${JLENV_TEST_DIR}/etc/jlenv_hooks/exec/bueno.bash
@@ -37,7 +39,7 @@ OUT
 
   JLENV_HOOK_PATH="$path1:$path2" run jlenv-hooks exec
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 ${JLENV_TEST_DIR}/my hooks/jlenv.d/exec/hello.bash
 ${JLENV_TEST_DIR}/etc/jlenv hooks/exec/ahoy.bash
 OUT
@@ -63,7 +65,7 @@ OUT
 
   JLENV_HOOK_PATH="$path" run jlenv-hooks exec
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 ${HOME}/hola.bash
 ${JLENV_TEST_DIR}/jlenv.d/exec/bright.sh
 OUT

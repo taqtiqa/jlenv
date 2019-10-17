@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 create_version() {
@@ -41,7 +43,7 @@ stub_system_julia() {
   create_version "1.9"
   run jlenv-versions
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 * system (set by ${JLENV_ROOT}/version)
   1.9
 OUT
@@ -60,7 +62,7 @@ OUT
   create_version "2.0.0"
   run jlenv-versions
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 * system (set by ${JLENV_ROOT}/version)
   0.7.0
   1.0.3
@@ -74,7 +76,7 @@ OUT
   create_version "2.0.0"
   JLENV_VERSION=1.0.3 run jlenv-versions
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
   system
 * 1.0.3 (set by JLENV_VERSION environment variable)
   2.0.0
@@ -86,7 +88,7 @@ OUT
   create_version "2.0.0"
   JLENV_VERSION=1.0.3 run jlenv-versions --bare
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<stdin <<OUT
 1.0.3
 2.0.0
 OUT
@@ -99,7 +101,7 @@ OUT
   cat > "${JLENV_ROOT}/version" <<<"1.0.3"
   run jlenv-versions
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
   system
 * 1.0.3 (set by ${JLENV_ROOT}/version)
   2.0.0
@@ -113,7 +115,7 @@ OUT
   cat > ".julia-version" <<<"1.0.3"
   run jlenv-versions
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
   system
 * 1.0.3 (set by ${JLENV_TEST_DIR}/.julia-version)
   2.0.0
@@ -134,7 +136,7 @@ OUT
 
   run jlenv-versions --bare
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 0.7
 0.7.0
 OUT
@@ -149,7 +151,7 @@ OUT
   run jlenv-versions --bare --skip-aliases
   assert_success
 
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 0.7.0
 1.9
 OUT

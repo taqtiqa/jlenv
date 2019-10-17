@@ -1,3 +1,15 @@
+# Don't track test scaffolding:
+test/libs
+test/libs/jlenv
+test/libs/bats
+test/libs/bats-assert
+test/libs/bats-file
+test/libs/bats-mock
+test/libs/bats-support
+test/libexec/bin
+test/libexec/libexec
+test/libexec/share
+
 /plugins
 /shims
 /version
@@ -12,3 +24,6 @@
 # Editor specifics
 /.vscode
 .vimrc
+
+# merge conflict artifacts
+*.orig

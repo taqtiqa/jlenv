@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 setup() {
@@ -9,18 +11,18 @@ setup() {
 
 @test "fails without arguments" {
   run jlenv-version-file-read
-  assert_failure ""
+  assert_failure 1
 }
 
 @test "fails for invalid file" {
   run jlenv-version-file-read "non-existent"
-  assert_failure ""
+  assert_failure 1
 }
 
 @test "fails for blank file" {
   echo > my-version
   run jlenv-version-file-read my-version
-  assert_failure ""
+  assert_failure 1
 }
 
 @test "reads simple version file" {

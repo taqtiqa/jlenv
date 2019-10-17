@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 create_executable() {
@@ -91,10 +93,10 @@ create_executable() {
 
   JLENV_VERSION=0.7 run jlenv-which juliac
   assert_failure
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 jlenv: juliac: command not found
 
-The \`juliac' command exists in these Julia versions:
+The $(juliac) command exists in these Julia versions:
   1.9
   2.0
 OUT

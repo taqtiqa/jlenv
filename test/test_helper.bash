@@ -1,8 +1,16 @@
 unset JLENV_VERSION
 unset JLENV_DIR
 
+echo 'The test_helper script is ...'
+
 # guard against executing this block twice due to bats internals
-if [ -z "$JLENV_TEST_DIR" ]; then
+if [ "${JLENV_ROOT:=/}" != "${JLENV_TEST_DIR:=/}/root" ]
+then
+
+  echo '... preparing bats test environment'
+
+  JLENV_TEST_DIR="${BATS_TMPDIR}/libs/jlenv"
+  PLUGIN="${JLENV_TEST_DIR}/root/plugins/jlenv-each"
   JLENV_TEST_DIR="${BATS_TMPDIR}/jlenv"
   export JLENV_TEST_DIR="$(mktemp -d "${JLENV_TEST_DIR}.XXX" 2>/dev/null || echo "$JLENV_TEST_DIR")"
 
@@ -19,10 +27,16 @@ if [ -z "$JLENV_TEST_DIR" ]; then
   export HOME="${JLENV_TEST_DIR}/home"
   export JLENV_HOOK_PATH="${JLENV_ROOT}/jlenv.d"
 
+  # Install bats to the test location. This is next added to path.
+  # These files are in .gitignore
+  pushd "${BATS_TEST_DIRNAME}/libs/bats"
+    ./install.sh "${BATS_TEST_DIRNAME}/libexec"
+  popd
+
   PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
   PATH="${JLENV_TEST_DIR}/bin:$PATH"
-  PATH="${BATS_TEST_DIRNAME}/../libexec:$PATH"
   PATH="${BATS_TEST_DIRNAME}/libexec:$PATH"
+  PATH="${BATS_TEST_DIRNAME}/../libexec:$PATH"
   PATH="${JLENV_ROOT}/shims:$PATH"
   export PATH
 
@@ -40,72 +54,6 @@ flunk() {
     fi
   } | sed "s:${JLENV_TEST_DIR}:TEST_DIR:g" >&2
   return 1
-}
-
-assert_success() {
-  if [ "$status" -ne 0 ]; then
-    flunk "command failed with exit status $status"
-  elif [ "$#" -gt 0 ]; then
-    assert_output "$1"
-  fi
-}
-
-assert_failure() {
-  if [ "$status" -eq 0 ]; then
-    flunk "expected failed exit status"
-  elif [ "$#" -gt 0 ]; then
-    assert_output "$1"
-  fi
-}
-
-assert_equal() {
-  if [ "$1" != "$2" ]; then
-    { echo "expected: $1"
-      echo "actual:   $2"
-    } | flunk
-  fi
-}
-
-assert_output() {
-  local expected
-  if [ $# -eq 0 ]; then expected="$(cat -)"
-  else expected="$1"
-  fi
-  assert_equal "$expected" "$output"
-}
-
-assert_line() {
-  if [ "$1" -ge 0 ] 2>/dev/null; then
-    assert_equal "$2" "${lines[$1]}"
-  else
-    local line
-    for line in "${lines[@]}"; do
-      if [ "$line" = "$1" ]; then return 0; fi
-    done
-    flunk "expected line \`$1'"
-  fi
-}
-
-refute_line() {
-  if [ "$1" -ge 0 ] 2>/dev/null; then
-    local num_lines="${#lines[@]}"
-    if [ "$1" -lt "$num_lines" ]; then
-      flunk "output has $num_lines lines"
-    fi
-  else
-    local line
-    for line in "${lines[@]}"; do
-      if [ "$line" = "$1" ]; then
-        flunk "expected to not find line \`$line'"
-      fi
-    done
-  fi
-}
-
-assert() {
-  if ! "$@"; then
-    flunk "failed: $@"
-  fi
 }
 
 # Output a modified PATH that ensures that the given executable is not present,

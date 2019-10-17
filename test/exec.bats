@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 create_executable() {
@@ -35,7 +37,7 @@ create_executable() {
   jlenv-rehash
   run jlenv-completions exec
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 --help
 julia
 OUT
@@ -66,7 +68,7 @@ SH
 
   run jlenv-exec julia -w "/path to/julia script.rb" -- extra args
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 ${JLENV_ROOT}/versions/2.0/bin/julia
   -w
   /path to/julia script.rb

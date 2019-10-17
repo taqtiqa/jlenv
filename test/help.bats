@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 @test "without args shows summary of common commands" {
@@ -26,7 +28,7 @@ SH
 
   run jlenv-help hello
   assert_success
-  assert_output <<SH
+  assert_output --stdin <<SH
 Usage: jlenv hello <world>
 
 This command is useful for saying hello.
@@ -44,7 +46,7 @@ SH
 
   run jlenv-help hello
   assert_success
-  assert_output <<SH
+  assert_output --stdin <<SH
 Usage: jlenv hello <world>
 
 Says "hello" to you, from jlenv
@@ -79,7 +81,7 @@ SH
 
   run jlenv-help hello
   assert_success
-  assert_output <<SH
+  assert_output --stdin <<SH
 Usage: jlenv hello <world>
        jlenv hi [everybody]
        jlenv hola --translate
@@ -104,7 +106,7 @@ SH
 
   run jlenv-help hello
   assert_success
-  assert_output <<SH
+  assert_output --stdin <<SH
 Usage: jlenv hello <world>
 
 This is extended help text.
