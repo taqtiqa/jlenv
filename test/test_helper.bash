@@ -63,11 +63,11 @@ then
 
   if enable -f "${BATS_TEST_DIRNAME}"/../libexec/jlenv-realpath.dylib realpath 2>/dev/null; then
     export JLENV_TEST_DIR="$(realpath "$JLENV_TEST_DIR")"
-  else
-    if [ -n "$JLENV_NATIVE_EXT" ]; then
-      echo "jlenv: failed to load \`realpath' builtin" >&2
-      exit 1
-    fi
+  # else
+    # if [ -n "$JLENV_NATIVE_EXT" ]; then
+    #   echo "jlenv: failed to load \`realpath' builtin" >&2
+    #   exit 1
+    # fi
   fi
 
   export JLENV_ROOT="${JLENV_TEST_DIR}/root"
