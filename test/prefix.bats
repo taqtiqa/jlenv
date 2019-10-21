@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 @test "prefix" {
@@ -13,7 +15,7 @@ load test_helper
 
 @test "prefix for invalid version" {
   JLENV_VERSION="1.2.3" run jlenv-prefix
-  assert_failure "jlenv: version \`1.2.3' not installed"
+  assert_failure "jlenv: version 'v1.2.3' not installed"
 }
 
 @test "prefix for system" {
@@ -25,6 +27,7 @@ load test_helper
 }
 
 @test "prefix for system in /" {
+  export PATH="${BATS_TEST_DIRNAME}/libexec:${BATS_TEST_DIRNAME}/../libexec:/usr/bin:/bin:/usr/local/bin"
   mkdir -p "${BATS_TEST_DIRNAME}/libexec"
   cat >"${BATS_TEST_DIRNAME}/libexec/jlenv-which" <<OUT
 #!/bin/sh
@@ -32,7 +35,8 @@ echo /bin/julia
 OUT
   chmod +x "${BATS_TEST_DIRNAME}/libexec/jlenv-which"
   JLENV_VERSION="system" run jlenv-prefix
-  assert_success "/"
+  assert_success 
+  assert_output "/"
   rm -f "${BATS_TEST_DIRNAME}/libexec/jlenv-which"
 }
 

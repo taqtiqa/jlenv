@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 create_executable() {
@@ -10,21 +12,26 @@ create_executable() {
 }
 
 @test "finds versions where present" {
-  create_executable "1.8" "julia"
-  create_executable "1.8" "rake"
+  create_executable "0.7" "julia"
+  create_executable "1.0" "juliac"
   create_executable "2.0" "julia"
-  create_executable "2.0" "rspec"
+  create_executable "2.0" "juliac"
+  create_executable "1.0" "genie"
 
   run jlenv-whence julia
   assert_success
-  assert_output <<OUT
-1.8
+  assert_output --stdin <<'OUT'
+0.7
 2.0
 OUT
 
-  run jlenv-whence rake
-  assert_success "1.8"
+  run jlenv-whence juliac
+  assert_success
+  assert_output --stdin <<'OUT'
+1.0
+2.0
+OUT
 
-  run jlenv-whence rspec
-  assert_success "2.0"
+  run jlenv-whence genie
+  assert_success "1.0"
 }

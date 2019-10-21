@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 create_version() {
@@ -23,12 +25,12 @@ setup() {
 }
 
 @test "JLENV_VERSION can be overridden by hook" {
-  create_version "1.8.7"
-  create_version "1.9.3"
-  create_hook version-name test.bash <<<"JLENV_VERSION=1.9.3"
+  create_version "0.7.0"
+  create_version "1.0.3"
+  create_hook version-name test.bash <<<"JLENV_VERSION=1.0.3"
 
-  JLENV_VERSION=1.8.7 run jlenv-version-name
-  assert_success "1.9.3"
+  JLENV_VERSION=0.7.0 run jlenv-version-name
+  assert_success "1.0.3"
 }
 
 @test "carries original IFS within hooks" {
@@ -44,39 +46,39 @@ SH
 }
 
 @test "JLENV_VERSION has precedence over local" {
-  create_version "1.8.7"
-  create_version "1.9.3"
+  create_version "0.7.0"
+  create_version "1.0.3"
 
-  cat > ".julia-version" <<<"1.8.7"
+  cat > ".julia-version" <<<"0.7.0"
   run jlenv-version-name
-  assert_success "1.8.7"
+  assert_success "0.7.0"
 
-  JLENV_VERSION=1.9.3 run jlenv-version-name
-  assert_success "1.9.3"
+  JLENV_VERSION=1.0.3 run jlenv-version-name
+  assert_success "1.0.3"
 }
 
 @test "local file has precedence over global" {
-  create_version "1.8.7"
-  create_version "1.9.3"
+  create_version "0.7.0"
+  create_version "1.0.3"
 
-  cat > "${JLENV_ROOT}/version" <<<"1.8.7"
+  cat > "${JLENV_ROOT}/version" <<<"0.7.0"
   run jlenv-version-name
-  assert_success "1.8.7"
+  assert_success "0.7.0"
 
-  cat > ".julia-version" <<<"1.9.3"
+  cat > ".julia-version" <<<"1.0.3"
   run jlenv-version-name
-  assert_success "1.9.3"
+  assert_success "1.0.3"
 }
 
 @test "missing version" {
   JLENV_VERSION=1.2 run jlenv-version-name
-  assert_failure "jlenv: version \`1.2' is not installed (set by JLENV_VERSION environment variable)"
+  assert_failure "jlenv: version 'v1.2' is not installed (set by JLENV_VERSION environment variable)"
 }
 
 @test "version with prefix in name" {
-  create_version "1.8.7"
-  cat > ".julia-version" <<<"julia-1.8.7"
+  create_version "0.7.0"
+  cat > ".julia-version" <<<"julia-0.7.0"
   run jlenv-version-name
   assert_success
-  assert_output "1.8.7"
+  assert_output "0.7.0"
 }

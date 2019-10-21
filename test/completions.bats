@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 create_command() {
@@ -26,7 +28,7 @@ else
 fi"
   run jlenv-completions hello
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 --help
 hello
 OUT
@@ -43,7 +45,7 @@ else
 fi"
   run jlenv-completions hello happy world
   assert_success
-  assert_output <<OUT
+  assert_output --stdin <<'OUT'
 --help
 happy
 world

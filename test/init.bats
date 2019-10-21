@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 @test "creates shims and versions directories" {
@@ -66,28 +68,28 @@ OUT
   export PATH="${BATS_TEST_DIRNAME}/../libexec:/usr/bin:/bin:/usr/local/bin"
   run jlenv-init - bash
   assert_success
-  assert_line 0 'export PATH="'${JLENV_ROOT}'/shims:${PATH}"'
+  assert_line --index 0 'export PATH="'${JLENV_ROOT}'/shims:${PATH}"'
 }
 
 @test "adds shims to PATH (fish)" {
   export PATH="${BATS_TEST_DIRNAME}/../libexec:/usr/bin:/bin:/usr/local/bin"
   run jlenv-init - fish
   assert_success
-  assert_line 0 "set -gx PATH '${JLENV_ROOT}/shims' \$PATH"
+  assert_line --index 0 "set -gx PATH '${JLENV_ROOT}/shims' \$PATH"
 }
 
 @test "can add shims to PATH more than once" {
   export PATH="${JLENV_ROOT}/shims:$PATH"
   run jlenv-init - bash
   assert_success
-  assert_line 0 'export PATH="'${JLENV_ROOT}'/shims:${PATH}"'
+  assert_line --index 0 'export PATH="'${JLENV_ROOT}'/shims:${PATH}"'
 }
 
 @test "can add shims to PATH more than once (fish)" {
   export PATH="${JLENV_ROOT}/shims:$PATH"
   run jlenv-init - fish
   assert_success
-  assert_line 0 "set -gx PATH '${JLENV_ROOT}/shims' \$PATH"
+  assert_line --index 0 "set -gx PATH '${JLENV_ROOT}/shims' \$PATH"
 }
 
 @test "outputs sh-compatible syntax" {
