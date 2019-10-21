@@ -35,7 +35,7 @@ fi
 
 JLENV_PREFIX_PATH="${JLENV_ROOT}/versions/${JLENV_VERSION}"
 if [ ! -d "$JLENV_PREFIX_PATH" ]; then
-  echo "jlenv: version \`${JLENV_VERSION}' not installed" >&2
+  echo "jlenv: version 'v${JLENV_VERSION}' not installed" >&2
   exit 1
 fi
 

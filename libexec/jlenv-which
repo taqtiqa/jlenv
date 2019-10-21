@@ -53,7 +53,7 @@ done
 if [ -x "$JLENV_COMMAND_PATH" ]; then
   echo "$JLENV_COMMAND_PATH"
 elif [ "$JLENV_VERSION" != "system" ] && [ ! -d "${JLENV_ROOT}/versions/${JLENV_VERSION}" ]; then
-  echo "jlenv: version \`$JLENV_VERSION' is not installed (set by $(jlenv-version-origin))" >&2
+  echo "jlenv: version 'v${JLENV_VERSION}' is not installed (set by $(jlenv-version-origin))" >&2
   exit 1
 else
   echo "jlenv: $JLENV_COMMAND: command not found" >&2
@@ -61,7 +61,7 @@ else
   versions="$(jlenv-whence "$JLENV_COMMAND" || true)"
   if [ -n "$versions" ]; then
     { echo
-      echo "The \`$1' command exists in these Julia versions:"
+      echo "The \$($1) command exists in these Julia versions:"
       echo "$versions" | sed 's/^/  /g'
       echo
     } >&2

@@ -1,0 +1,13 @@
+---
+title: "jlenv: Julia management for your applications."
+email: mark@taqtiqa.com
+description: > # this means to ignore newlines until "baseurl:"
+  Build, install and manage multiple versions of <a href="https://www.julialang.org/">Julia</a>
+github_username:  jlenv
+include_related_posts: true
+plugins:
+  - jekyll-relative-links
+theme: jekyll-theme-leap-day
+relative_links:
+  enabled: true
+  collections: true

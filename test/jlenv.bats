@@ -1,23 +1,25 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 @test "blank invocation" {
   run jlenv
   assert_failure
-  assert_line 0 "$(jlenv---version)"
+  assert_line --index 0 "$(jlenv---version)"
 }
 
 @test "invalid command" {
   run jlenv does-not-exist
   assert_failure
-  assert_output "jlenv: no such command \`does-not-exist'"
+  assert_output "jlenv: no such command \$(does-not-exist)"
 }
 
 @test "default JLENV_ROOT" {
   JLENV_ROOT="" HOME=/home/mislav run jlenv root
   assert_success
-  assert_output "/home/mislav/.jlenv"
+  assert_output '/home/mislav/.jlenv'
 }
 
 @test "inherited JLENV_ROOT" {
@@ -43,7 +45,7 @@ load test_helper
   assert [ ! -d "$dir" ]
   JLENV_DIR="$dir" run jlenv echo JLENV_DIR
   assert_failure
-  assert_output "jlenv: cannot change working directory to \`$dir'"
+  assert_output "jlenv: cannot change working directory to \$($dir)"
 }
 
 @test "adds its own libexec to PATH" {
@@ -56,17 +58,17 @@ load test_helper
   mkdir -p "$JLENV_ROOT"/plugins/jlenv-each/bin
   run jlenv echo -F: "PATH"
   assert_success
-  assert_line 0 "${BATS_TEST_DIRNAME%/*}/libexec"
-  assert_line 1 "${JLENV_ROOT}/plugins/julia-build/bin"
-  assert_line 2 "${JLENV_ROOT}/plugins/jlenv-each/bin"
+  assert_line --index 0 "${BATS_TEST_DIRNAME%/*}/libexec"
+  assert_line --index 1 "${JLENV_ROOT}/plugins/julia-build/bin"
+  assert_line --index 2 "${JLENV_ROOT}/plugins/jlenv-each/bin"
 }
 
 @test "JLENV_HOOK_PATH preserves value from environment" {
   JLENV_HOOK_PATH=/my/hook/path:/other/hooks run jlenv echo -F: "JLENV_HOOK_PATH"
   assert_success
-  assert_line 0 "/my/hook/path"
-  assert_line 1 "/other/hooks"
-  assert_line 2 "${JLENV_ROOT}/jlenv.d"
+  assert_line --index 0 "/my/hook/path"
+  assert_line --index 1 "/other/hooks"
+  assert_line --index 2 "${JLENV_ROOT}/jlenv.d"
 }
 
 @test "JLENV_HOOK_PATH includes jlenv built-in plugins" {

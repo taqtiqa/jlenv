@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 setup() {
@@ -71,5 +73,5 @@ create_file() {
 
 @test "fails when no version file in target directory" {
   run jlenv-version-file "$PWD"
-  assert_failure ""
+  assert_failure 1
 }

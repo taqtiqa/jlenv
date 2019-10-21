@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 @test "prints usage help given no argument" {
@@ -20,11 +22,9 @@ load test_helper
 
   JLENV_HOOK_PATH="$path1:$path2" run jlenv-hooks exec
   assert_success
-  assert_output <<OUT
-${JLENV_TEST_DIR}/jlenv.d/exec/ahoy.bash
-${JLENV_TEST_DIR}/jlenv.d/exec/hello.bash
-${JLENV_TEST_DIR}/etc/jlenv_hooks/exec/bueno.bash
-OUT
+  assert_line --index 0 --regexp '(jlenv\.[a-zA-Z0-9]{3})/(jlenv\.d/exec/ahoy\.bash)'
+  assert_line --index 1 --regexp '(jlenv\.[a-zA-Z0-9]{3})/(jlenv\.d/exec/hello\.bash)'
+  assert_line --index 2 --regexp '(jlenv\.[a-zA-Z0-9]{3})/(etc/jlenv_hooks/exec/bueno\.bash)'
 }
 
 @test "supports hook paths with spaces" {
@@ -37,10 +37,8 @@ OUT
 
   JLENV_HOOK_PATH="$path1:$path2" run jlenv-hooks exec
   assert_success
-  assert_output <<OUT
-${JLENV_TEST_DIR}/my hooks/jlenv.d/exec/hello.bash
-${JLENV_TEST_DIR}/etc/jlenv hooks/exec/ahoy.bash
-OUT
+  assert_line --index 0 --regexp '(jlenv\.[a-zA-Z0-9]{3})/(my hooks/jlenv\.d/exec/hello\.bash)'
+  assert_line --index 1 --regexp '(jlenv\.[a-zA-Z0-9]{3})/(etc/jlenv hooks/exec/ahoy\.bash)'
 }
 
 @test "resolves relative paths" {
@@ -63,8 +61,6 @@ OUT
 
   JLENV_HOOK_PATH="$path" run jlenv-hooks exec
   assert_success
-  assert_output <<OUT
-${HOME}/hola.bash
-${JLENV_TEST_DIR}/jlenv.d/exec/bright.sh
-OUT
+  assert_line --index 0 --regexp '(jlenv\.[a-zA-Z0-9]{3})/(home/hola\.bash)'
+  assert_line --index 1 --regexp '(jlenv\.[a-zA-Z0-9]{3})/(jlenv\.d/exec/bright\.sh)'
 }

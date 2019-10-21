@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+load libs/bats-support/load
+load libs/bats-assert/load
 load test_helper
 
 create_version() {
@@ -18,21 +20,21 @@ setup() {
 }
 
 @test "set by JLENV_VERSION" {
-  create_version "1.9.3"
-  JLENV_VERSION=1.9.3 run jlenv-version
-  assert_success "1.9.3 (set by JLENV_VERSION environment variable)"
+  create_version "1.0.3"
+  JLENV_VERSION=1.0.3 run jlenv-version
+  assert_success "1.0.3 (set by JLENV_VERSION environment variable)"
 }
 
 @test "set by local file" {
-  create_version "1.9.3"
-  cat > ".julia-version" <<<"1.9.3"
+  create_version "1.0.3"
+  cat > ".julia-version" <<<"1.0.3"
   run jlenv-version
-  assert_success "1.9.3 (set by ${PWD}/.julia-version)"
+  assert_success "1.0.3 (set by ${PWD}/.julia-version)"
 }
 
 @test "set by global file" {
-  create_version "1.9.3"
-  cat > "${JLENV_ROOT}/version" <<<"1.9.3"
+  create_version "1.0.3"
+  cat > "${JLENV_ROOT}/version" <<<"1.0.3"
   run jlenv-version
-  assert_success "1.9.3 (set by ${JLENV_ROOT}/version)"
+  assert_success "1.0.3 (set by ${JLENV_ROOT}/version)"
 }
