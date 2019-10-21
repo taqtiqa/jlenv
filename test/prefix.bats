@@ -27,6 +27,7 @@ load test_helper
 }
 
 @test "prefix for system in /" {
+  export PATH="${BATS_TEST_DIRNAME}/libexec:${BATS_TEST_DIRNAME}/../libexec:/usr/bin:/bin:/usr/local/bin"
   mkdir -p "${BATS_TEST_DIRNAME}/libexec"
   cat >"${BATS_TEST_DIRNAME}/libexec/jlenv-which" <<OUT
 #!/bin/sh
@@ -34,7 +35,8 @@ echo /bin/julia
 OUT
   chmod +x "${BATS_TEST_DIRNAME}/libexec/jlenv-which"
   JLENV_VERSION="system" run jlenv-prefix
-  assert_success "/"
+  assert_success 
+  assert_output "/"
   rm -f "${BATS_TEST_DIRNAME}/libexec/jlenv-which"
 }
 
