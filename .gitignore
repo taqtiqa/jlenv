@@ -25,5 +25,5 @@ test/libexec/share
 /.vscode
 .vimrc
 
-# Merge leftovers.
+# merge conflict artifacts
 *.orig
