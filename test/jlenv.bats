@@ -10,6 +10,12 @@ load test_helper
   assert_line --index 0 "$(jlenv---version)"
 }
 
+@test "blank invocation with debug output" {
+  run jlenv
+  assert_failure
+  assert_line --index 0 "$(jlenv---version)"
+}
+
 @test "invalid command" {
   run jlenv does-not-exist
   assert_failure
