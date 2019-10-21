@@ -19,7 +19,7 @@ load test_helper
 @test "default JLENV_ROOT" {
   JLENV_ROOT="" HOME=/home/mislav run jlenv root
   assert_success
-  assert_output "/home/mislav/.jlenv"
+  assert_output '/home/mislav/.jlenv'
 }
 
 @test "inherited JLENV_ROOT" {
