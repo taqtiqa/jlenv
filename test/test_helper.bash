@@ -59,16 +59,7 @@ then
   JLENV_TEST_DIR="${BATS_TMPDIR}/libs/jlenv"
   PLUGIN="${JLENV_TEST_DIR}/root/plugins/jlenv-each"
   JLENV_TEST_DIR="${BATS_TMPDIR}/jlenv"
-  export JLENV_TEST_DIR="$(mktemp -d "${JLENV_TEST_DIR}.XXX" 2>/dev/null || echo "$JLENV_TEST_DIR")"
-
-  if enable -f "${BATS_TEST_DIRNAME}"/../libexec/jlenv-realpath.dylib realpath 2>/dev/null; then
-    export JLENV_TEST_DIR="$(realpath "$JLENV_TEST_DIR")"
-  # else
-    # if [ -n "$JLENV_NATIVE_EXT" ]; then
-    #   echo "jlenv: failed to load \`realpath' builtin" >&2
-    #   exit 1
-    # fi
-  fi
+  export JLENV_TEST_DIR="$(mktemp -d "${JLENV_TEST_DIR}.XXX" 2>/dev/null || echo "${JLENV_TEST_DIR}")"
 
   export JLENV_ROOT="${JLENV_TEST_DIR}/root"
   export HOME="${JLENV_TEST_DIR}/home"
@@ -87,6 +78,9 @@ then
   PATH="${JLENV_ROOT}/shims:$PATH"
   export PATH
 
-  for xdg_var in `env 2>/dev/null | grep ^XDG_ | cut -d= -f1`; do unset "$xdg_var"; done
+  for xdg_var in $(env 2>/dev/null | grep ^XDG_ | cut -d= -f1)
+  do 
+    unset "$xdg_var"
+  done
   unset xdg_var
 fi

@@ -22,8 +22,9 @@ set -o pipefail         # Use last non-zero exit code in a pipeline
 #       $ta_none: The ANSI control code to reset all text attributes
 # NOTE: $script_path only contains the path that was used to call the script
 #       and will not resolve any symlinks which may be present in the path.
-#       You can use a tool like realpath to obtain the "true" path. The same
-#       caveat applies to both the $script_dir and $script_name variables.
+#       You can use a tool like GNU CoreUtils readlink or realpath to obtain
+#       the "true" path. 
+#       The same caveat applies to the $script_dir and $script_name variables.
 function script_init() {
 
     readonly orig_cwd="$PWD"
