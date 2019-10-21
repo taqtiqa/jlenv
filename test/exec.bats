@@ -77,33 +77,3 @@ SH
   args
 OUT
 }
-
-@test "supports julia -S <cmd>" {
-  export JLENV_VERSION="2.0"
-
-  # emulate \$(julia -S) behavior
-  create_executable "julia" <<SH
-#!$BASH
-if [[ \$1 == "-S"* ]]; then
-  found="\$(PATH="\${JULIAPATH:-\$PATH}" which \$2)"
-  # assert that the found executable has julia for shebang
-  if head -1 "\$found" | grep julia >/dev/null; then
-    \$BASH "\$found"
-  else
-    echo "julia: no Julia script found in input (LoadError)" >&2
-    exit 1
-  fi
-else
-  echo 'julia 2.0 (jlenv test)'
-fi
-SH
-
-  create_executable "rake" <<SH
-#!/usr/bin/env julia
-echo hello rake
-SH
-
-  jlenv-rehash
-  run julia -S rake
-  assert_success "hello rake"
-}
