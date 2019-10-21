@@ -47,6 +47,13 @@ that your development environment matches production.
 
 ## Installation
 
+### Requirements
+
+1. GNU [CoreUtils](https://www.gnu.org/software/coreutils/): version >= 8.15.
+1. Bourne Again SHell: [bash](https://www.gnu.org/software/bash/)
+
+### Instructions
+
 1. Install jlenv.
    Note that this also installs `julia-build`, so you'll be ready to
    install other Julia versions out of the box.
