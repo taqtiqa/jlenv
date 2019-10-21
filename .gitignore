@@ -24,3 +24,6 @@ test/libexec/share
 # Editor specifics
 /.vscode
 .vimrc
+
+# Merge leftovers.
+*.orig
