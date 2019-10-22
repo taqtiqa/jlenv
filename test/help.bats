@@ -7,7 +7,7 @@ load test_helper
 @test "without args shows summary of common commands" {
   run jlenv-help
   assert_success
-  assert_line "Usage: jlenv <command> [<args>]"
+  assert_line "Usage: jlenv [<opts>] <command> [<args>]"
   assert_line "Some useful jlenv commands are:"
 }
 

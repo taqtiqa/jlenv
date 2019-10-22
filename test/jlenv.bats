@@ -4,22 +4,76 @@ load libs/bats-support/load
 load libs/bats-assert/load
 load test_helper
 
+@test "help invocation" {
+  run jlenv --help
+  assert_success
+  assert_line --index 0 "$(jlenv---version)"
+  assert_output --partial --stdin <<'OUT'
+Options to jlenv:
+     -h|--help                  Displays this help
+     -v|--verbose               Displays verbose output
+    -nc|--no-colour             Disables colour output
+    -cr|--cron                  Run silently unless we encounter an error
+
+Usage: jlenv [<opts>] <command> [<args>]
+
+Some useful jlenv commands are:
+   commands    List all available jlenv commands
+   local       Set or show the local application-specific Julia version
+   global      Set or show the global Julia version
+   shell       Set or show the shell-specific Julia version
+   install     Fake install program
+   uninstall   Fake uninstall program
+   rehash      Rehash jlenv shims (run this after installing executables)
+   version     Show the current Julia version and its origin
+   versions    List all Julia versions available to jlenv
+   which       Display the full path to an executable
+   whence      List all Julia versions that contain the given executable
+
+See $(jlenv help <command>) for information on a specific command.
+For full documentation, see: https://github.com/jlenv/jlenv#readme
+
+OUT
+}
+
 @test "blank invocation" {
   run jlenv
   assert_failure
-  assert_line --index 0 "$(jlenv---version)"
-}
+assert_line --index 0 "$(jlenv---version)"
+  assert_output --partial --stdin <<'OUT'
+Options to jlenv:
+     -h|--help                  Displays this help
+     -v|--verbose               Displays verbose output
+    -nc|--no-colour             Disables colour output
+    -cr|--cron                  Run silently unless we encounter an error
 
-@test "blank invocation with debug output" {
-  run jlenv
-  assert_failure
-  assert_line --index 0 "$(jlenv---version)"
+Usage: jlenv [<opts>] <command> [<args>]
+
+Some useful jlenv commands are:
+   commands    List all available jlenv commands
+   local       Set or show the local application-specific Julia version
+   global      Set or show the global Julia version
+   shell       Set or show the shell-specific Julia version
+   install     Fake install program
+   uninstall   Fake uninstall program
+   rehash      Rehash jlenv shims (run this after installing executables)
+   version     Show the current Julia version and its origin
+   versions    List all Julia versions available to jlenv
+   which       Display the full path to an executable
+   whence      List all Julia versions that contain the given executable
+
+See $(jlenv help <command>) for information on a specific command.
+For full documentation, see: https://github.com/jlenv/jlenv#readme
+
+OUT
 }
 
 @test "invalid command" {
   run jlenv does-not-exist
   assert_failure
-  assert_output "jlenv: no such command \$(does-not-exist)"
+  assert_output --partial --stdin <<'OUT'
+jlenv:  No such command: $(does-not-exist)
+OUT
 }
 
 @test "default JLENV_ROOT" {
@@ -51,7 +105,7 @@ load test_helper
   assert [ ! -d "$dir" ]
   JLENV_DIR="$dir" run jlenv echo JLENV_DIR
   assert_failure
-  assert_output "jlenv: cannot change working directory to \$($dir)"
+  assert_output "jlenv:  Cannot change working directory to \$($dir)"
 }
 
 @test "adds its own libexec to PATH" {
