@@ -145,13 +145,13 @@ if [ "$1" = "--usage" ]; then
 fi
 
 if [ -z "$1" ] || [ "$1" == "jlenv" ]; then
-  echo "Usage: jlenv <command> [<args>]"
+  echo "Usage: jlenv [<opts>] <command> [<args>]"
   [ -z "$usage" ] || exit
   echo
   echo "Some useful jlenv commands are:"
   print_summaries commands local global shell install uninstall rehash version versions which whence
   echo
-  echo "See \`jlenv help <command>' for information on a specific command."
+  echo "See \$(jlenv help <command>) for information on a specific command."
   echo "For full documentation, see: https://github.com/jlenv/jlenv#readme"
 else
   command="$1"
