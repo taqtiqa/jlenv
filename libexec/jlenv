@@ -656,7 +656,7 @@ abs_dirname(){
     echo "$(cd "$(dirname "${fn}")"; pwd)"
   else
     # folder
-    echo "${fn}"
+    "$(cd "${fn}"; pwd)"
   fi
 }
 
