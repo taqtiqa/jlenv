@@ -71,7 +71,7 @@ create_executable() {
 @test "version not installed" {
   create_executable "2.0" "juliac"
   JLENV_VERSION=1.9 run jlenv-which juliac
-  assert_failure "jlenv: version 'v1.9' is not installed (set by JLENV_VERSION environment variable)"
+  assert_failure "jlenv: version \`1.9' is not installed (set by JLENV_VERSION environment variable)"
 }
 
 @test "no executable found" {
@@ -93,10 +93,10 @@ create_executable() {
 
   JLENV_VERSION=0.7 run jlenv-which juliac
   assert_failure
-  assert_output --stdin <<'OUT'
+  assert_output <<OUT
 jlenv: juliac: command not found
 
-The $(juliac) command exists in these Julia versions:
+The \`juliac' command exists in these Julia versions:
   1.9
   2.0
 OUT
