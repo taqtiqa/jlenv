@@ -591,7 +591,7 @@ verbose_setup() {
 # OUTS: Value of a canonical file name
 resolve_link() {
   res=$(command readlink --canonicalize "$1")
-  echo $res
+  echo "$res"
 }
 
 # DESC: Generate absolute directory path from relative path.
@@ -656,7 +656,7 @@ abs_dirname(){
     echo "$(cd "$(dirname "${fn}")"; pwd)"
   else
     # folder
-    "$(cd "${fn}"; pwd)"
+    echo "$(cd "${fn}"; pwd)"
   fi
 }
 
