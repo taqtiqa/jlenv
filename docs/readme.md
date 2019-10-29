@@ -31,6 +31,7 @@ that your development environment matches production.
 * [Deploying with jlenv](/jlenv/deploying-jlenv)
 * [Understanding binstubs](/jlenv/understanding-binstubs)
 * [Unix shell initialization](/jlenv/unix-shell-init)
+* [Changelog](/jlenv/changelog)
 
 ## Page Contents
 
@@ -54,6 +55,9 @@ that your development environment matches production.
 2. Run `jlenv init` and follow the instructions to set up
    jlenv integration with your shell. This is the step that will make
    running `julia` "see" the Julia version that you choose with jlenv.
+   **NOTICE:**
+   In the next version of `jlenv` this behavior may move to `jlenv chjl`.  
+   Please comment on this change under [this Issue](https://github.com/jlenv/jlenv/issues/10).
 
 3. Close your Terminal window and open a new one so your changes take
    effect.
