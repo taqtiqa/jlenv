@@ -6,39 +6,39 @@
 
 * [Authoring plugins](#authoring-plugins)
   * [jlenv commands](#jlenv-commands)
-      * [Environment](#environment)
-      * [Calling other commands](#calling-other-commands)
-      * [Help text](#help-text)
-      * [Completions](#completions)
+    * [Environment](#environment)
+    * [Calling other commands](#calling-other-commands)
+    * [Help text](#help-text)
+    * [Completions](#completions)
   * [Provide jlenv completions](#provide-jlenv-completions)
   * [jlenv hooks](#jlenv-hooks)
   
-jlenv plugins provide new commands and/or hook into existing functionality of
-jlenv. The following file naming scheme should be followed in a plugin project:
+`jlenv` plugins provide new commands and/or hook into existing functionality of
+`jlenv`. The following file naming scheme should be followed in a plugin project:
 
 1. `bin/jlenv-COMMAND` for commands
 1. `etc/jlenv.d/HOOK_NAME/*.bash` for hooks
 
 ## jlenv commands
 
-A jlenv command is an executable named like `jlenv-COMMAND`. It will get
-executed when a user runs `jlenv COMMAND`. 
+A `jlenv` command is an executable named like `jlenv-COMMAND`. It will get
+executed when a user runs `jlenv COMMAND`.
 Its help will be displayed when a user runs `jlenv help COMMAND`.
 It can be written in any interpreted language, but bash script is recommended
 for portability.
 
-**A plugin command cannot override any of the jlenv's built-in commands.**
+**A plugin command must not override any of the jlenv's built-in commands.**
 
 ### Environment
 
 Each jlenv command runs with the following environment:
 
-*   `$JLENV_ROOT` - where jlenv versions & user data is typically in `~/.jlenv`
-*   `$JLENV_DIR` - the current directory of the caller
-*   `$PATH` - constructed to contain:
-    1.  jlenv's `libexec` dir with core commands
-    2.  `$JLENV_ROOT/plugins/*/bin` for plugin commands
-    3.  `$PATH` (external value)
+* `$JLENV_ROOT` - where jlenv versions & user data is typically in `~/.jlenv`
+* `$JLENV_DIR` - the current directory of the caller
+* `$PATH` - constructed to contain:
+  1. jlenv's `libexec` dir with core commands
+  2. `$JLENV_ROOT/plugins/*/bin` for plugin commands
+  3. `$PATH` (external values)
 
 ### Calling other commands
 
@@ -88,8 +88,8 @@ completion values when invoked with the `--complete` flag.
 
 ## Provide jlenv completions
 
-```
-if \[ "$1" \= "\--complete" \]; then
+```bash
+if [ "$1" = "--complete" ]; then
   echo hello
   exit
 fi
@@ -99,7 +99,6 @@ Note: **it's important to keep the above comment intact**.
 This is how jlenv detects if a command is provides completion values.
 
 ## jlenv hooks
----------------------------
 
 Hooks are bash scripts named `HOOK_NAME/*.bash`, where "HOOK\_NAME" is one of:
 
