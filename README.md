@@ -6,6 +6,8 @@
 
 Use jlenv to pick a Julia version for your application and guarantee
 that your development environment matches production.
+ 
+ Further [documentation is here](https://jlenv.github.io/jlenv/).
 
 **NOTE:**
 Please use a tagged [release](https://github.com/jlenv/jlenv/releases).  
