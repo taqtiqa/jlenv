@@ -5,7 +5,7 @@
 ## Page Contents
 
 * [Plugins](#plugins)
-  * [Approved plugins](#approved-plugins)
+  * [jlenv Org plugins](#jlenv-org-plugins)
   * [Community plugins](#community-plugins)
 
 See [Authoring Plugins](/jlenv/authoring-plugins.md) for instructions on how to write
@@ -16,7 +16,7 @@ A plugin can be installed by dropping it in as a sub-directory of
 `jlenv-*` executables are placed in the `$PATH` and hooks are installed
 accordingly somewhere in `$JLENV_HOOK_PATH`.
 
-## Approved plugins(#approved-plugins)
+## jlenv Org plugins(#jlenv-org-plugins)
 
 These plugins are maintained in the jlenv organisation.  They aim to be
 compatible with jlenv.  Eventually these may be incorporated into jlenv.

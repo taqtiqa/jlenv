@@ -36,6 +36,8 @@ that your development environment matches production.
 ## Page Contents
 
 * [Installation](#installation)
+  * [Requirements](#requirements)
+  * [Instructions](#instructions)  
   * [Basic GitHub Checkout](#basic-github-checkout)
     * [Upgrading with Git](#upgrading-with-git)
   * [How jlenv hooks into your shell](#how-jlenv-hooks-into-your-shell)
@@ -47,6 +49,13 @@ that your development environment matches production.
 * [Development](#development)
 
 ## Installation
+
+### Requirements
+
+1. GNU [CoreUtils](https://www.gnu.org/software/coreutils/): >= 8.15 (circa 2012).
+1. BASH: [bash](https://www.gnu.org/software/bash/): >= 4.3 (circa 2014)
+
+### Instructions
 
 1. Install jlenv.
    Note that this also installs `julia-build`, so you'll be ready to

@@ -13,21 +13,21 @@
   * [Provide jlenv completions](#provide-jlenv-completions)
   * [jlenv hooks](#jlenv-hooks)
   
-jlenv plugins provide new commands and/or hook into existing functionality of
-jlenv. The following file naming scheme should be followed in a plugin project:
+`jlenv` plugins provide new commands and/or hook into existing functionality of
+`jlenv`. The following file naming scheme should be followed in a plugin project:
 
 1. `bin/jlenv-COMMAND` for commands
 1. `etc/jlenv.d/HOOK_NAME/*.bash` for hooks
 
 ## jlenv commands
 
-A jlenv command is an executable named like `jlenv-COMMAND`. It will get
+A `jlenv` command is an executable named like `jlenv-COMMAND`. It will get
 executed when a user runs `jlenv COMMAND`.
 Its help will be displayed when a user runs `jlenv help COMMAND`.
 It can be written in any interpreted language, but bash script is recommended
 for portability.
 
-**A plugin command cannot override any of the jlenv's built-in commands.**
+**A plugin command must not override any of the jlenv's built-in commands.**
 
 ### Environment
 
