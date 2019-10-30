@@ -1,5 +1,5 @@
 # Don't track bats.log created by test/run
-bats.cmds
+bats_not.cmds
 bats.log
 bats.not
 bats.tbl
