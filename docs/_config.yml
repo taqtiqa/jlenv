@@ -8,7 +8,7 @@ include_related_posts: true
 plugins:
   - jekyll-relative-links
   - jekyll-remote-theme
-remote_theme: orderedlist/minimal
 relative_links:
   enabled: true
   collections: true
+remote_theme: pmarsceill/just-the-docs
