@@ -41,7 +41,13 @@ os:
   - linux
 rvm: 
   - "2.5.5"
-script: 
-  - (bashcov test/run || true)
-  - ls -la
+script:
+- |
+  (bashcov test/run || true)
+  cat bats.log | sed -e '/^not ok/!d' | cut -f4- -d ' ' >bats.not
+  echo 'export JLENV_DEBUG=1' >bats_not.cmds
+  ls -la
+  cat bats.not | while read -r line; do echo "test/libs/bats/bin/bats -f '${line}' test" >>bats_not.cmds; done
+  cat bats_not.cmds
+  (bash bats_not.cmds || true)
 sudo: required

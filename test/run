@@ -92,4 +92,4 @@ bats_not_cmds
 cat bats.tbl
 cat bats_not.cmds
 
-bash bats_not.cmds
+bash bats_not.cmds || true
