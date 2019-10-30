@@ -10,7 +10,7 @@ set -o errexit          # Exit on most errors (see the manual)
 set -o errtrace         # Make sure any error trap is inherited
 # set -o nounset          # Disallow expansion of unset variables
 set -o pipefail         # Use last non-zero exit code in a pipeline
-#set -o xtrace          # Trace the execution of the script (debug)
+set -o xtrace          # Trace the execution of the script (debug)
 
 # DESC: Generic script initialisation (useful paths)
 # ARGS: $@ (optional): Arguments provided to the script
@@ -56,4 +56,40 @@ else
 fi
 
 # We should now be at the plugin root folder.  
-exec "${script_dir}/libs/bats/bin/bats" ${CI:+--tap} test
+# exec "${script_dir}/libs/bats/bin/bats" ${CI:+--tap} test
+
+exec ${script_dir}/libs/bats/bin/bats --tap test |tee bats.log
+
+bats_table()
+{
+  echo 'Bats test failed count:'
+  cat bats.log |
+    sed -e '/^not ok\|\.bats/!d' |
+    tr '[:space:]' '[\n*]' |
+    sort |
+    uniq -c |
+    sort -nr |
+    grep bats | tee bats.tbl
+}
+
+bats_not_descriptions() 
+{
+  cat bats.log|
+    sed -e '/^not ok/!d'|
+    cut -f4- -d ' ' >bats.not
+}
+
+bats_not_cmds() 
+{
+  echo 'export JLENV_DEBUG=1' >bats_not.cmds
+  cat bats.not | while read -r line; do echo "${script_dir}/libs/bats/bin/bats -f '${line}' test" >>bats_not.cmds; done
+}
+
+bats_table
+bats_not_descriptions
+bats_not_cmds
+
+cat bats.tbl
+cat bats_not.cmds
+
+bash bats_not.cmds
