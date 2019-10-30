@@ -43,5 +43,6 @@ rvm:
   - "2.5.5"
 script:
   - (bashcov test/run || true)
+  - bash test/run
   - (bash test/report || true)
 sudo: required
