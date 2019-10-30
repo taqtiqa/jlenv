@@ -50,7 +50,7 @@ When you call `julia` on the command-line, it results in this call chain:
 1. `$JLENV_ROOT/shims/julia` (jlenv shim)
 1. `$JLENV_ROOT/versions/1.0.3/bin/julia` (original)
 
-A jlenv shim, presented here in a slightly simplified form, is a short shell script:
+A `jlenv` shim, presented here in a slightly simplified form, is a short shell script:
 
 ```bash
 #!/usr/bin/env bash
@@ -64,7 +64,7 @@ version.
 
 ## Project-specific binaries
 
-When you run `your-bin-exe` within your project's directory, jlenv can ensure
+When you run `your-bin-exe` within your project's directory, `jlenv` can ensure
 that it gets executed with the selected _Julia version_ configured for that
 project.
 Further, Julia's package manager will ensure that the right _version of your-bin-exe_
