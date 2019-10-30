@@ -7,18 +7,18 @@
 * [Understanding Binstubs](#understanding-binstubs)
   * [Context](#context)
   * [Julia Compiled Packages](#julia-compiled-packages)
-      * [PackageCompile.jl](#packagecompilejl)
-      * [BinaryBuilder.jl   BinaryProvider.jl](#binarybuilderjl--binaryproviderjl)
+    * [PackageCompile.jl](#packagecompilejl)
+    * [BinaryBuilder.jl   BinaryProvider.jl](#binarybuilderjl--binaryproviderjl)
   * [jlenv](#jlenv)
   * [Project-specific binaries](#project-specific-binaries)
-      * [Hand generated binstubs](#hand-generated-binstubs)
-      * [Manually created binstubs](#manually-created-binstubs)
-      * [Adding project-specific binstubs to PATH](#adding-project-specific-binstubs-to-path)
+    * [Hand generated binstubs](#hand-generated-binstubs)
+    * [Manually created binstubs](#manually-created-binstubs)
+    * [Adding project-specific binstubs to PATH](#adding-project-specific-binstubs-to-path)
 
 ## Context
 
-Dynamic languages such as Python, Ruby or R have the concept of binstubs as
-firstclass citizens when it comes to building an executable.
+Dynamic languages such as Julia, Python, Ruby or R have the concept of binstubs
+as firstclass citizens when it comes to building an executable.
 Binstubs are wrapper scripts around executables (sometimes referred to as
 "binaries", although they don't have to be compiled) whose purpose is to prepare
 the environment before dispatching the call to the original executable/script.
@@ -42,7 +42,7 @@ To be completed.
 ## jlenv
 
 jlenv adds its own "shims" directory to `$PATH` which contains binstubs for
-every executable related to Julia. 
+every executable related to Julia.
 There are binstubs for `julia` and `juliac` across each installed Julia version.
 
 When you call `julia` on the command-line, it results in this call chain:
@@ -70,9 +70,9 @@ project.
 Further, Julia's package manager will ensure that the right _version of your-bin-exe_
 gets activated.
 In fact, Pkg.jl will simply activate the correct version even if your project
-contains a newer version. 
+contains a newer version.
 In the context of a project, this is the desired behavior.
-It ensures the right versions of dependencies get activated, ensuring a 
+It ensures the right versions of dependencies get activated, ensuring a
 consistent julia runtime environment.
 
 ### Hand generated binstubs
@@ -114,7 +114,7 @@ startup()
 
 Using `bin/genie` now ensures that [Genie](https://genieframework.com/) will
 run in the exact same environment as the application: same Julia version,
-same Pkg dependencies. 
+same Pkg dependencies.
 This is true even if the binstub was called from outside the app, for instance
 as `/path/to/app/current/bin/genie`.
 

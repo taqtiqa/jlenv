@@ -24,12 +24,14 @@ env:
     - INSTALL_BASH_VERSION=5.0
     - INSTALL_BASH_VERSION=4.4
     - INSTALL_BASH_VERSION=4.3
-    - INSTALL_BASH_VERSION=4.2
+    - INSTALL_BASH_VERSION=4.2.53
     - INSTALL_BASH_VERSION=4.1
     - INSTALL_BASH_VERSION=4.0
 language: ruby
 matrix: 
   allow_failures: 
+    - 
+      env: INSTALL_BASH_VERSION=4.2.53
     - 
       env: INSTALL_BASH_VERSION=4.1
     - 
