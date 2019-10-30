@@ -42,5 +42,6 @@ os:
 rvm: 
   - "2.5.5"
 script: 
-  - "bashcov test/run"
+  - (bashcov test/run || true)
+  - ls -la
 sudo: required
